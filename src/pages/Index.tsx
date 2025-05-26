@@ -60,6 +60,7 @@ const Index = () => {
               <span className="text-white text-xl font-bold">Engagement Analysis</span>
             </Link>
             <div className="flex space-x-6">
+              <Link to="/analysis" className="text-gray-300 hover:text-white transition-colors">Analysis</Link>
               <Link to="/about" className="text-gray-300 hover:text-white transition-colors">About</Link>
               <Link to="/faq" className="text-gray-300 hover:text-white transition-colors">FAQ</Link>
             </div>
