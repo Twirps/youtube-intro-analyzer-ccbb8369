@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { BarChart3, TrendingUp, Clock, Eye } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -11,12 +10,11 @@ const Analysis = () => {
       <nav className="bg-black/20 backdrop-blur-xl border-b border-gray-700/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 items-center">
-            <div className="flex items-center space-x-2">
+            <Link to="/" className="flex items-center space-x-2 hover:opacity-80 transition-opacity">
               <BarChart3 className="h-8 w-8 text-white" />
-              <span className="text-white text-xl font-bold">VideoAnalyzer</span>
-            </div>
+              <span className="text-white text-xl font-bold">Engagement Analysis</span>
+            </Link>
             <div className="flex space-x-6">
-              <Link to="/" className="text-gray-300 hover:text-white transition-colors">Home / Upload</Link>
               <Link to="/analysis" className="text-white hover:text-gray-300 transition-colors font-medium">Analysis</Link>
               <Link to="/about" className="text-gray-300 hover:text-white transition-colors">About</Link>
               <Link to="/faq" className="text-gray-300 hover:text-white transition-colors">FAQ</Link>

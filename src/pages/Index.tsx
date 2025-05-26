@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { Link } from 'react-router-dom';
+
 const Index = () => {
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
@@ -54,13 +55,11 @@ const Index = () => {
       <nav className="bg-black/20 backdrop-blur-xl border-b border-gray-700/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 items-center">
-            <div className="flex items-center space-x-2">
+            <Link to="/" className="flex items-center space-x-2 hover:opacity-80 transition-opacity">
               <BarChart3 className="h-8 w-8 text-white" />
               <span className="text-white text-xl font-bold">Engagement Analysis</span>
-            </div>
+            </Link>
             <div className="flex space-x-6">
-              
-              
               <Link to="/about" className="text-gray-300 hover:text-white transition-colors">About</Link>
               <Link to="/faq" className="text-gray-300 hover:text-white transition-colors">FAQ</Link>
             </div>
@@ -179,4 +178,5 @@ const Index = () => {
       </div>
     </div>;
 };
+
 export default Index;
