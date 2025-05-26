@@ -1,46 +1,42 @@
-
 import React, { useState } from 'react';
 import { Upload, BarChart3, FileVideo, CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { Link } from 'react-router-dom';
-
 const Index = () => {
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [analysisComplete, setAnalysisComplete] = useState(false);
   const [isDragOver, setIsDragOver] = useState(false);
-  const { toast } = useToast();
-
+  const {
+    toast
+  } = useToast();
   const handleFileUpload = (file: File) => {
     if (file.type.startsWith('video/')) {
       setUploadedFile(file);
       toast({
         title: "Video uploaded successfully!",
-        description: `${file.name} is ready for analysis.`,
+        description: `${file.name} is ready for analysis.`
       });
     } else {
       toast({
         title: "Invalid file type",
         description: "Please upload a video file.",
-        variant: "destructive",
+        variant: "destructive"
       });
     }
   };
-
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
     setIsDragOver(false);
     const file = e.dataTransfer.files[0];
     if (file) handleFileUpload(file);
   };
-
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) handleFileUpload(file);
   };
-
   const analyzeVideo = () => {
     setIsAnalyzing(true);
     // Simulate analysis process
@@ -49,24 +45,22 @@ const Index = () => {
       setAnalysisComplete(true);
       toast({
         title: "Analysis complete!",
-        description: "Your video engagement analysis is ready.",
+        description: "Your video engagement analysis is ready."
       });
     }, 3000);
   };
-
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800">
+  return <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800">
       {/* Navigation */}
       <nav className="bg-black/20 backdrop-blur-xl border-b border-gray-700/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 items-center">
             <div className="flex items-center space-x-2">
               <BarChart3 className="h-8 w-8 text-white" />
-              <span className="text-white text-xl font-bold">VideoAnalyzer</span>
+              <span className="text-white text-xl font-bold">Engagement Analysis</span>
             </div>
             <div className="flex space-x-6">
-              <Link to="/" className="text-white hover:text-gray-300 transition-colors font-medium">Home / Upload</Link>
-              <Link to="/analysis" className="text-gray-300 hover:text-white transition-colors">Analysis</Link>
+              
+              
               <Link to="/about" className="text-gray-300 hover:text-white transition-colors">About</Link>
               <Link to="/faq" className="text-gray-300 hover:text-white transition-colors">FAQ</Link>
             </div>
@@ -77,43 +71,22 @@ const Index = () => {
       <div className="max-w-4xl mx-auto px-4 py-12">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-5xl font-bold text-white mb-4">
-            YouTube Video Engagement Analyzer
-          </h1>
-          <p className="text-xl text-gray-300">
-            Upload your video and get instant AI-powered engagement insights
-          </p>
+          <h1 className="text-5xl font-bold text-white mb-4">YouTube Intro Analyzer</h1>
+          <p className="text-xl text-gray-300">Upload the first minute of the video and get instant AI-powered engagement insights</p>
         </div>
 
         {/* Upload Section */}
-        {!analysisComplete && (
-          <Card className="bg-gray-900/50 backdrop-blur-xl border-gray-700/50 mb-8">
+        {!analysisComplete && <Card className="bg-gray-900/50 backdrop-blur-xl border-gray-700/50 mb-8">
             <CardHeader>
               <CardTitle className="text-white text-2xl">Upload Your Video</CardTitle>
             </CardHeader>
             <CardContent>
-              <div
-                className={`border-2 border-dashed rounded-lg p-12 text-center transition-all duration-300 ${
-                  isDragOver
-                    ? 'border-blue-400 bg-blue-400/10'
-                    : 'border-gray-600 hover:border-gray-500 hover:bg-gray-800/30'
-                }`}
-                onDrop={handleDrop}
-                onDragOver={(e) => e.preventDefault()}
-                onDragEnter={() => setIsDragOver(true)}
-                onDragLeave={() => setIsDragOver(false)}
-              >
+              <div className={`border-2 border-dashed rounded-lg p-12 text-center transition-all duration-300 ${isDragOver ? 'border-blue-400 bg-blue-400/10' : 'border-gray-600 hover:border-gray-500 hover:bg-gray-800/30'}`} onDrop={handleDrop} onDragOver={e => e.preventDefault()} onDragEnter={() => setIsDragOver(true)} onDragLeave={() => setIsDragOver(false)}>
                 <Upload className="h-16 w-16 text-gray-400 mx-auto mb-4" />
                 <p className="text-white text-lg mb-4">
                   Drag and drop your video here, or click to select
                 </p>
-                <input
-                  type="file"
-                  accept="video/*"
-                  onChange={handleFileSelect}
-                  className="hidden"
-                  id="video-upload"
-                />
+                <input type="file" accept="video/*" onChange={handleFileSelect} className="hidden" id="video-upload" />
                 <label htmlFor="video-upload">
                   <Button className="bg-white text-black hover:bg-gray-200 transition-colors">
                     Choose Video File
@@ -121,8 +94,7 @@ const Index = () => {
                 </label>
               </div>
 
-              {uploadedFile && (
-                <div className="mt-6 p-4 bg-emerald-500/10 rounded-lg border border-emerald-500/30">
+              {uploadedFile && <div className="mt-6 p-4 bg-emerald-500/10 rounded-lg border border-emerald-500/30">
                   <div className="flex items-center space-x-3">
                     <FileVideo className="h-6 w-6 text-emerald-400" />
                     <div>
@@ -132,22 +104,15 @@ const Index = () => {
                       </p>
                     </div>
                   </div>
-                  <Button
-                    onClick={analyzeVideo}
-                    disabled={isAnalyzing}
-                    className="mt-4 bg-emerald-600 hover:bg-emerald-700 text-white w-full"
-                  >
+                  <Button onClick={analyzeVideo} disabled={isAnalyzing} className="mt-4 bg-emerald-600 hover:bg-emerald-700 text-white w-full">
                     {isAnalyzing ? 'Analyzing...' : 'Analyze Engagement'}
                   </Button>
-                </div>
-              )}
+                </div>}
             </CardContent>
-          </Card>
-        )}
+          </Card>}
 
         {/* Analysis Results */}
-        {analysisComplete && (
-          <Card className="bg-gray-900/50 backdrop-blur-xl border-gray-700/50">
+        {analysisComplete && <Card className="bg-gray-900/50 backdrop-blur-xl border-gray-700/50">
             <CardHeader>
               <CardTitle className="text-white text-2xl flex items-center space-x-2">
                 <CheckCircle className="h-8 w-8 text-emerald-400" />
@@ -203,21 +168,15 @@ const Index = () => {
                 </ul>
               </div>
 
-              <Button
-                onClick={() => {
-                  setAnalysisComplete(false);
-                  setUploadedFile(null);
-                }}
-                className="mt-6 bg-white text-black hover:bg-gray-200 transition-colors w-full"
-              >
+              <Button onClick={() => {
+            setAnalysisComplete(false);
+            setUploadedFile(null);
+          }} className="mt-6 bg-white text-black hover:bg-gray-200 transition-colors w-full">
                 Analyze Another Video
               </Button>
             </CardContent>
-          </Card>
-        )}
+          </Card>}
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default Index;
