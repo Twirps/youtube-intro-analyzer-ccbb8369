@@ -55,9 +55,9 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800">
       {/* Navigation */}
-      <nav className="bg-white/10 backdrop-blur-md border-b border-white/20">
+      <nav className="bg-black/20 backdrop-blur-xl border-b border-gray-700/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 items-center">
             <div className="flex items-center space-x-2">
@@ -65,10 +65,10 @@ const Index = () => {
               <span className="text-white text-xl font-bold">VideoAnalyzer</span>
             </div>
             <div className="flex space-x-6">
-              <Link to="/" className="text-white hover:text-purple-200 transition-colors">Home / Upload</Link>
-              <Link to="/analysis" className="text-white hover:text-purple-200 transition-colors">Analysis</Link>
-              <Link to="/about" className="text-white hover:text-purple-200 transition-colors">About</Link>
-              <Link to="/faq" className="text-white hover:text-purple-200 transition-colors">FAQ</Link>
+              <Link to="/" className="text-white hover:text-gray-300 transition-colors font-medium">Home / Upload</Link>
+              <Link to="/analysis" className="text-gray-300 hover:text-white transition-colors">Analysis</Link>
+              <Link to="/about" className="text-gray-300 hover:text-white transition-colors">About</Link>
+              <Link to="/faq" className="text-gray-300 hover:text-white transition-colors">FAQ</Link>
             </div>
           </div>
         </div>
@@ -80,14 +80,14 @@ const Index = () => {
           <h1 className="text-5xl font-bold text-white mb-4">
             YouTube Video Engagement Analyzer
           </h1>
-          <p className="text-xl text-purple-200">
+          <p className="text-xl text-gray-300">
             Upload your video and get instant AI-powered engagement insights
           </p>
         </div>
 
         {/* Upload Section */}
         {!analysisComplete && (
-          <Card className="bg-white/10 backdrop-blur-md border-white/20 mb-8">
+          <Card className="bg-gray-900/50 backdrop-blur-xl border-gray-700/50 mb-8">
             <CardHeader>
               <CardTitle className="text-white text-2xl">Upload Your Video</CardTitle>
             </CardHeader>
@@ -95,15 +95,15 @@ const Index = () => {
               <div
                 className={`border-2 border-dashed rounded-lg p-12 text-center transition-all duration-300 ${
                   isDragOver
-                    ? 'border-purple-400 bg-purple-400/20'
-                    : 'border-white/40 hover:border-purple-400 hover:bg-white/5'
+                    ? 'border-blue-400 bg-blue-400/10'
+                    : 'border-gray-600 hover:border-gray-500 hover:bg-gray-800/30'
                 }`}
                 onDrop={handleDrop}
                 onDragOver={(e) => e.preventDefault()}
                 onDragEnter={() => setIsDragOver(true)}
                 onDragLeave={() => setIsDragOver(false)}
               >
-                <Upload className="h-16 w-16 text-white mx-auto mb-4" />
+                <Upload className="h-16 w-16 text-gray-400 mx-auto mb-4" />
                 <p className="text-white text-lg mb-4">
                   Drag and drop your video here, or click to select
                 </p>
@@ -115,19 +115,19 @@ const Index = () => {
                   id="video-upload"
                 />
                 <label htmlFor="video-upload">
-                  <Button className="bg-purple-600 hover:bg-purple-700 text-white">
+                  <Button className="bg-white text-black hover:bg-gray-200 transition-colors">
                     Choose Video File
                   </Button>
                 </label>
               </div>
 
               {uploadedFile && (
-                <div className="mt-6 p-4 bg-green-500/20 rounded-lg border border-green-500/30">
+                <div className="mt-6 p-4 bg-emerald-500/10 rounded-lg border border-emerald-500/30">
                   <div className="flex items-center space-x-3">
-                    <FileVideo className="h-6 w-6 text-green-400" />
+                    <FileVideo className="h-6 w-6 text-emerald-400" />
                     <div>
                       <p className="text-white font-medium">{uploadedFile.name}</p>
-                      <p className="text-green-300 text-sm">
+                      <p className="text-emerald-300 text-sm">
                         {(uploadedFile.size / (1024 * 1024)).toFixed(2)} MB
                       </p>
                     </div>
@@ -135,7 +135,7 @@ const Index = () => {
                   <Button
                     onClick={analyzeVideo}
                     disabled={isAnalyzing}
-                    className="mt-4 bg-green-600 hover:bg-green-700 text-white w-full"
+                    className="mt-4 bg-emerald-600 hover:bg-emerald-700 text-white w-full"
                   >
                     {isAnalyzing ? 'Analyzing...' : 'Analyze Engagement'}
                   </Button>
@@ -147,19 +147,19 @@ const Index = () => {
 
         {/* Analysis Results */}
         {analysisComplete && (
-          <Card className="bg-white/10 backdrop-blur-md border-white/20">
+          <Card className="bg-gray-900/50 backdrop-blur-xl border-gray-700/50">
             <CardHeader>
               <CardTitle className="text-white text-2xl flex items-center space-x-2">
-                <CheckCircle className="h-8 w-8 text-green-400" />
+                <CheckCircle className="h-8 w-8 text-emerald-400" />
                 <span>Engagement Analysis Results</span>
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="bg-gradient-to-r from-green-500/20 to-emerald-500/20 p-6 rounded-lg border border-green-500/30">
-                  <h3 className="text-green-300 text-sm font-semibold uppercase tracking-wide">Overall Score</h3>
+                <div className="bg-gradient-to-r from-emerald-500/20 to-green-500/20 p-6 rounded-lg border border-emerald-500/30">
+                  <h3 className="text-emerald-300 text-sm font-semibold uppercase tracking-wide">Overall Score</h3>
                   <p className="text-3xl font-bold text-white mt-2">87/100</p>
-                  <p className="text-green-200 text-sm mt-1">Highly Engaging</p>
+                  <p className="text-emerald-200 text-sm mt-1">Highly Engaging</p>
                 </div>
 
                 <div className="bg-gradient-to-r from-blue-500/20 to-cyan-500/20 p-6 rounded-lg border border-blue-500/30">
@@ -193,9 +193,9 @@ const Index = () => {
                 </div>
               </div>
 
-              <div className="mt-8 p-6 bg-white/5 rounded-lg border border-white/20">
+              <div className="mt-8 p-6 bg-gray-800/50 rounded-lg border border-gray-700/50">
                 <h3 className="text-white text-lg font-semibold mb-3">AI Recommendations</h3>
-                <ul className="space-y-2 text-gray-200">
+                <ul className="space-y-2 text-gray-300">
                   <li>• Strong opening hook keeps viewers engaged</li>
                   <li>• Consider adding more dynamic camera movements</li>
                   <li>• Audio quality is excellent - maintain this standard</li>
@@ -208,7 +208,7 @@ const Index = () => {
                   setAnalysisComplete(false);
                   setUploadedFile(null);
                 }}
-                className="mt-6 bg-purple-600 hover:bg-purple-700 text-white w-full"
+                className="mt-6 bg-white text-black hover:bg-gray-200 transition-colors w-full"
               >
                 Analyze Another Video
               </Button>
