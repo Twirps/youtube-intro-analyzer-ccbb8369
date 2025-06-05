@@ -1,6 +1,5 @@
-
 import React, { useState } from 'react';
-import { Upload, BarChart3, FileVideo, CheckCircle } from 'lucide-react';
+import { Upload, BarChart3, FileVideo, CheckCircle, Lock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -11,12 +10,22 @@ import { Link } from 'react-router-dom';
 const Index = () => {
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const [videoTitle, setVideoTitle] = useState('');
+  const [titleSubmitted, setTitleSubmitted] = useState(false);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [analysisComplete, setAnalysisComplete] = useState(false);
   const [isDragOver, setIsDragOver] = useState(false);
   const { toast } = useToast();
 
   const handleFileUpload = (file: File) => {
+    if (!titleSubmitted) {
+      toast({
+        title: "Title required first",
+        description: "Please submit your video title before uploading a video.",
+        variant: "destructive"
+      });
+      return;
+    }
+
     if (file.type.startsWith('video/')) {
       setUploadedFile(file);
       toast({
@@ -46,21 +55,35 @@ const Index = () => {
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    if (value.length <= 52) {
+    if (value.length <= 52 && !titleSubmitted) {
       setVideoTitle(value);
     }
   };
 
-  const analyzeVideo = () => {
+  const handleTitleSubmit = () => {
     if (!videoTitle.trim()) {
       toast({
         title: "Title required",
-        description: "Please enter the YouTube video title before analyzing.",
+        description: "Please enter a video title before submitting.",
         variant: "destructive"
       });
       return;
     }
 
+    setTitleSubmitted(true);
+    toast({
+      title: "Title submitted!",
+      description: "You can now upload your video for analysis."
+    });
+  };
+
+  const handleTitleEdit = () => {
+    setTitleSubmitted(false);
+    setUploadedFile(null);
+    setAnalysisComplete(false);
+  };
+
+  const analyzeVideo = () => {
     setIsAnalyzing(true);
     // Simulate analysis process
     setTimeout(() => {
@@ -71,6 +94,13 @@ const Index = () => {
         description: "Your video engagement analysis is ready."
       });
     }, 3000);
+  };
+
+  const resetForm = () => {
+    setAnalysisComplete(false);
+    setUploadedFile(null);
+    setVideoTitle('');
+    setTitleSubmitted(false);
   };
 
   return (
@@ -84,7 +114,9 @@ const Index = () => {
               <span className="text-white text-xl font-bold">Engagement Analysis</span>
             </Link>
             <div className="flex space-x-6">
-              <Link to="/analysis" className="text-gray-300 hover:text-white transition-colors">Analysis</Link>
+              {analysisComplete && (
+                <Link to="/analysis" className="text-gray-300 hover:text-white transition-colors">Analysis</Link>
+              )}
               <Link to="/about" className="text-gray-300 hover:text-white transition-colors">About</Link>
               <Link to="/faq" className="text-gray-300 hover:text-white transition-colors">FAQ</Link>
             </div>
@@ -103,7 +135,7 @@ const Index = () => {
         {!analysisComplete && (
           <Card className="bg-gray-900/50 backdrop-blur-xl border-gray-700/50 mb-8">
             <CardHeader>
-              <CardTitle className="text-white text-2xl">Upload Your Video</CardTitle>
+              <CardTitle className="text-white text-2xl">Setup Your Analysis</CardTitle>
             </CardHeader>
             <CardContent>
               {/* Video Title Input */}
@@ -111,47 +143,92 @@ const Index = () => {
                 <Label htmlFor="video-title" className="text-white text-sm font-medium mb-2 block">
                   YouTube Video Title
                 </Label>
-                <Input
-                  id="video-title"
-                  type="text"
-                  value={videoTitle}
-                  onChange={handleTitleChange}
-                  placeholder="Enter your YouTube video title..."
-                  className="bg-gray-800/50 border-gray-600 text-white placeholder:text-gray-400 focus:border-gray-400"
-                  maxLength={52}
-                />
-                <p className="text-gray-400 text-xs mt-1">
-                  {videoTitle.length}/52 characters
-                </p>
+                <div className="flex gap-3">
+                  <div className="flex-1">
+                    <Input
+                      id="video-title"
+                      type="text"
+                      value={videoTitle}
+                      onChange={handleTitleChange}
+                      placeholder="Enter your YouTube video title..."
+                      className="bg-gray-800/50 border-gray-600 text-white placeholder:text-gray-400 focus:border-gray-400"
+                      maxLength={52}
+                      disabled={titleSubmitted}
+                    />
+                    <p className="text-gray-400 text-xs mt-1">
+                      {videoTitle.length}/52 characters
+                    </p>
+                  </div>
+                  {!titleSubmitted ? (
+                    <Button
+                      onClick={handleTitleSubmit}
+                      disabled={!videoTitle.trim()}
+                      className="bg-blue-600 hover:bg-blue-700 text-white"
+                    >
+                      Submit Title
+                    </Button>
+                  ) : (
+                    <Button
+                      onClick={handleTitleEdit}
+                      variant="outline"
+                      className="border-gray-600 text-gray-300 hover:bg-gray-800"
+                    >
+                      Edit Title
+                    </Button>
+                  )}
+                </div>
+                {titleSubmitted && (
+                  <div className="mt-2 p-2 bg-green-500/10 rounded border border-green-500/30">
+                    <p className="text-green-300 text-sm flex items-center">
+                      <CheckCircle className="h-4 w-4 mr-2" />
+                      Title submitted successfully!
+                    </p>
+                  </div>
+                )}
               </div>
 
+              {/* Video Upload Section */}
               <div
                 className={`border-2 border-dashed rounded-lg p-12 text-center transition-all duration-300 ${
-                  isDragOver
+                  !titleSubmitted
+                    ? 'border-gray-700 bg-gray-800/20 opacity-50'
+                    : isDragOver
                     ? 'border-blue-400 bg-blue-400/10'
                     : 'border-gray-600 hover:border-gray-500 hover:bg-gray-800/30'
                 }`}
-                onDrop={handleDrop}
-                onDragOver={(e) => e.preventDefault()}
-                onDragEnter={() => setIsDragOver(true)}
-                onDragLeave={() => setIsDragOver(false)}
+                onDrop={titleSubmitted ? handleDrop : undefined}
+                onDragOver={titleSubmitted ? (e) => e.preventDefault() : undefined}
+                onDragEnter={titleSubmitted ? () => setIsDragOver(true) : undefined}
+                onDragLeave={titleSubmitted ? () => setIsDragOver(false) : undefined}
               >
-                <Upload className="h-16 w-16 text-gray-400 mx-auto mb-4" />
-                <p className="text-white text-lg mb-4">
-                  Drag and drop your video here, or click to select
+                {!titleSubmitted && (
+                  <Lock className="h-16 w-16 text-gray-600 mx-auto mb-4" />
+                )}
+                {titleSubmitted && (
+                  <Upload className="h-16 w-16 text-gray-400 mx-auto mb-4" />
+                )}
+                <p className={`text-lg mb-4 ${titleSubmitted ? 'text-white' : 'text-gray-600'}`}>
+                  {titleSubmitted 
+                    ? 'Drag and drop your video here, or click to select'
+                    : 'Submit your video title first to unlock video upload'
+                  }
                 </p>
-                <input
-                  type="file"
-                  accept="video/*"
-                  onChange={handleFileSelect}
-                  className="hidden"
-                  id="video-upload"
-                />
-                <label htmlFor="video-upload">
-                  <Button className="bg-white text-black hover:bg-gray-200 transition-colors">
-                    Choose Video File
-                  </Button>
-                </label>
+                {titleSubmitted && (
+                  <>
+                    <input
+                      type="file"
+                      accept="video/*"
+                      onChange={handleFileSelect}
+                      className="hidden"
+                      id="video-upload"
+                    />
+                    <label htmlFor="video-upload">
+                      <Button className="bg-white text-black hover:bg-gray-200 transition-colors">
+                        Choose Video File
+                      </Button>
+                    </label>
+                  </>
+                )}
               </div>
 
               {uploadedFile && (
@@ -237,16 +314,19 @@ const Index = () => {
                 </ul>
               </div>
 
-              <Button
-                onClick={() => {
-                  setAnalysisComplete(false);
-                  setUploadedFile(null);
-                  setVideoTitle('');
-                }}
-                className="mt-6 bg-white text-black hover:bg-gray-200 transition-colors w-full"
-              >
-                Analyze Another Video
-              </Button>
+              <div className="flex gap-4">
+                <Button
+                  onClick={resetForm}
+                  className="flex-1 bg-white text-black hover:bg-gray-200 transition-colors"
+                >
+                  Analyze Another Video
+                </Button>
+                <Link to="/analysis" className="flex-1">
+                  <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white">
+                    View Detailed Analysis
+                  </Button>
+                </Link>
+              </div>
             </CardContent>
           </Card>
         )}
