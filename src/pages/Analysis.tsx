@@ -1,5 +1,6 @@
+
 import React from 'react';
-import { BarChart3, TrendingUp, Clock, Eye } from 'lucide-react';
+import { BarChart3, TrendingUp, Clock, Eye, Target, CheckCircle, PlayCircle } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Link } from 'react-router-dom';
 
@@ -27,7 +28,7 @@ const Analysis = () => {
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-white mb-4">Analysis Dashboard</h1>
           <p className="text-xl text-gray-300">
-            View detailed insights from your video analysis
+            View detailed insights from your video intro analysis
           </p>
         </div>
 
@@ -39,17 +40,45 @@ const Analysis = () => {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                <div className="flex items-center justify-between p-4 bg-gray-800/50 rounded-lg border border-gray-700/30">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-12 h-12 bg-gradient-to-r from-emerald-500 to-green-500 rounded-lg flex items-center justify-center">
-                      <Eye className="h-6 w-6 text-white" />
+                <div className="p-6 bg-gray-800/50 rounded-lg border border-gray-700/30">
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center space-x-3">
+                      <div className="w-12 h-12 bg-gradient-to-r from-emerald-500 to-green-500 rounded-lg flex items-center justify-center">
+                        <Eye className="h-6 w-6 text-white" />
+                      </div>
+                      <div>
+                        <p className="text-white font-medium">My_First_Video.mp4</p>
+                        <p className="text-gray-400 text-sm">Overall Score: 88/100 - 2 hours ago</p>
+                      </div>
                     </div>
-                    <div>
-                      <p className="text-white font-medium">My_First_Video.mp4</p>
-                      <p className="text-gray-400 text-sm">Score: 87/100 - 2 hours ago</p>
+                    <span className="text-emerald-400 text-sm font-semibold">Highly Engaging</span>
+                  </div>
+                  
+                  <div className="grid grid-cols-3 gap-4 mt-4">
+                    <div className="text-center">
+                      <div className="flex items-center justify-center mb-2">
+                        <Target className="h-4 w-4 text-emerald-400 mr-1" />
+                        <span className="text-xs text-gray-400 uppercase tracking-wide">Hook Strength</span>
+                      </div>
+                      <p className="text-lg font-bold text-white">92%</p>
+                    </div>
+                    
+                    <div className="text-center">
+                      <div className="flex items-center justify-center mb-2">
+                        <CheckCircle className="h-4 w-4 text-blue-400 mr-1" />
+                        <span className="text-xs text-gray-400 uppercase tracking-wide">Title Match</span>
+                      </div>
+                      <p className="text-lg font-bold text-white">88%</p>
+                    </div>
+                    
+                    <div className="text-center">
+                      <div className="flex items-center justify-center mb-2">
+                        <PlayCircle className="h-4 w-4 text-purple-400 mr-1" />
+                        <span className="text-xs text-gray-400 uppercase tracking-wide">Continue Motive</span>
+                      </div>
+                      <p className="text-lg font-bold text-white">85%</p>
                     </div>
                   </div>
-                  <span className="text-emerald-400 text-sm font-semibold">Highly Engaging</span>
                 </div>
                 
                 <div className="text-center py-8">
@@ -79,7 +108,7 @@ const Analysis = () => {
                   </div>
                   <div>
                     <p className="text-gray-400 text-sm">Average Score</p>
-                    <p className="text-2xl font-bold text-emerald-400">87/100</p>
+                    <p className="text-2xl font-bold text-emerald-400">88/100</p>
                   </div>
                   <div>
                     <p className="text-gray-400 text-sm">Analysis Time</p>
@@ -93,15 +122,23 @@ const Analysis = () => {
               <CardHeader>
                 <CardTitle className="text-white flex items-center space-x-2">
                   <Clock className="h-5 w-5" />
-                  <span>Tips</span>
+                  <span>Analysis Criteria</span>
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-3 text-sm text-gray-400">
-                  <p>• Keep your intro under 15 seconds</p>
-                  <p>• Use clear, high-quality audio</p>
-                  <p>• Add visual variety every 3-5 seconds</p>
-                  <p>• Start with a compelling hook</p>
+                  <div className="flex items-center space-x-2">
+                    <Target className="h-4 w-4 text-emerald-400" />
+                    <span>Hook Strength - Opening impact</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <CheckCircle className="h-4 w-4 text-blue-400" />
+                    <span>Title Confirmation - Content match</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <PlayCircle className="h-4 w-4 text-purple-400" />
+                    <span>Continue Motive - Retention drive</span>
+                  </div>
                 </div>
               </CardContent>
             </Card>
