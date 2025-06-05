@@ -90,8 +90,8 @@ const Index = () => {
       setIsAnalyzing(false);
       setAnalysisComplete(true);
       toast({
-        title: "Analysis complete!",
-        description: "Your video engagement analysis is ready."
+        title: "Video processed!",
+        description: "Your video has been processed. Review the transcript next."
       });
     }, 3000);
   };
@@ -258,7 +258,7 @@ const Index = () => {
             <CardHeader>
               <CardTitle className="text-white text-2xl flex items-center space-x-2">
                 <CheckCircle className="h-8 w-8 text-emerald-400" />
-                <span>Engagement Analysis Results</span>
+                <span>Video Processing Complete</span>
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -267,60 +267,25 @@ const Index = () => {
                 <p className="text-gray-300">"{videoTitle}"</p>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                <div className="bg-gradient-to-r from-emerald-500/20 to-green-500/20 p-6 rounded-lg border border-emerald-500/30">
-                  <h3 className="text-emerald-300 text-sm font-semibold uppercase tracking-wide">Hook Strength</h3>
-                  <p className="text-3xl font-bold text-white mt-2">92%</p>
-                  <p className="text-emerald-200 text-sm mt-1">Strong opening hook</p>
-                </div>
-
-                <div className="bg-gradient-to-r from-blue-500/20 to-cyan-500/20 p-6 rounded-lg border border-blue-500/30">
-                  <h3 className="text-blue-300 text-sm font-semibold uppercase tracking-wide">Title Confirmation</h3>
-                  <p className="text-3xl font-bold text-white mt-2">88%</p>
-                  <p className="text-blue-200 text-sm mt-1">Matches title well</p>
-                </div>
-
-                <div className="bg-gradient-to-r from-purple-500/20 to-pink-500/20 p-6 rounded-lg border border-purple-500/30">
-                  <h3 className="text-purple-300 text-sm font-semibold uppercase tracking-wide">Motive to Continue</h3>
-                  <p className="text-3xl font-bold text-white mt-2">85%</p>
-                  <p className="text-purple-200 text-sm mt-1">Strong viewer retention</p>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                <div className="bg-gradient-to-r from-orange-500/20 to-red-500/20 p-6 rounded-lg border border-orange-500/30">
-                  <h3 className="text-orange-300 text-sm font-semibold uppercase tracking-wide">Overall Score</h3>
-                  <p className="text-3xl font-bold text-white mt-2">88/100</p>
-                  <p className="text-orange-200 text-sm mt-1">Highly Engaging</p>
-                </div>
-
-                <div className="bg-gradient-to-r from-teal-500/20 to-cyan-500/20 p-6 rounded-lg border border-teal-500/30">
-                  <h3 className="text-teal-300 text-sm font-semibold uppercase tracking-wide">Retention Prediction</h3>
-                  <p className="text-3xl font-bold text-white mt-2">83%</p>
-                  <p className="text-teal-200 text-sm mt-1">Above average</p>
-                </div>
-              </div>
-
-              <div className="p-6 bg-gray-800/50 rounded-lg border border-gray-700/50">
-                <h3 className="text-white text-lg font-semibold mb-3">AI Recommendations</h3>
-                <ul className="space-y-2 text-gray-300">
-                  <li>• Strong opening hook effectively grabs viewer attention</li>
-                  <li>• Content delivery aligns well with the video title</li>
-                  <li>• Creates compelling reasons for viewers to continue watching</li>
-                  <li>• Consider maintaining this engagement level throughout the video</li>
-                </ul>
+              <div className="p-6 bg-emerald-500/10 rounded-lg border border-emerald-500/30 mb-6">
+                <h3 className="text-emerald-300 text-lg font-semibold mb-3">Next Step</h3>
+                <p className="text-emerald-200 mb-4">
+                  Your video has been processed and the transcript is ready for review. 
+                  Please review and edit the transcript before proceeding to analysis.
+                </p>
               </div>
 
               <div className="flex gap-4">
                 <Button
                   onClick={resetForm}
-                  className="flex-1 bg-white text-black hover:bg-gray-200 transition-colors"
+                  variant="outline"
+                  className="border-gray-600 text-gray-300 hover:bg-gray-800"
                 >
                   Analyze Another Video
                 </Button>
-                <Link to="/analysis" className="flex-1">
+                <Link to="/transcript" className="flex-1">
                   <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white">
-                    View Detailed Analysis
+                    Review Transcript
                   </Button>
                 </Link>
               </div>
