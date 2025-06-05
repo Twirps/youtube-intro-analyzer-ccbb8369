@@ -3,10 +3,8 @@ import { BarChart3 } from 'lucide-react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Card, CardContent } from '@/components/ui/card';
 import { Link } from 'react-router-dom';
-
 const FAQ = () => {
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800">
+  return <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800">
       {/* Navigation */}
       <nav className="bg-black/20 backdrop-blur-xl border-b border-gray-700/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -16,7 +14,7 @@ const FAQ = () => {
               <span className="text-white text-xl font-bold">Engagement Analysis</span>
             </Link>
             <div className="flex space-x-6">
-              <Link to="/analysis" className="text-gray-300 hover:text-white transition-colors">Analysis</Link>
+              
               <Link to="/about" className="text-gray-300 hover:text-white transition-colors">About</Link>
               <Link to="/faq" className="text-white hover:text-gray-300 transition-colors font-medium">FAQ</Link>
             </div>
@@ -128,16 +126,11 @@ const FAQ = () => {
 
         <div className="text-center mt-12">
           <p className="text-gray-400 mb-4">Have a question that's not answered here?</p>
-          <Link 
-            to="/" 
-            className="inline-block bg-white text-black hover:bg-gray-200 px-6 py-3 rounded-lg transition-colors font-medium"
-          >
+          <Link to="/" className="inline-block bg-white text-black hover:bg-gray-200 px-6 py-3 rounded-lg transition-colors font-medium">
             Try VideoAnalyzer Now
           </Link>
         </div>
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default FAQ;
