@@ -2,9 +2,12 @@
 import React from 'react';
 import { BarChart3, TrendingUp, Clock, Eye, Target, CheckCircle, PlayCircle } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const Analysis = () => {
+  const location = useLocation();
+  const { videoTitle, videoFile } = location.state || { videoTitle: 'Untitled Video', videoFile: null };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800">
       {/* Navigation */}
@@ -39,7 +42,7 @@ const Analysis = () => {
               <CardTitle className="text-white">Recent Analysis</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="space-y-4">
+              <div className="space-y-6">
                 <div className="p-6 bg-gray-800/50 rounded-lg border border-gray-700/30">
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center space-x-3">
@@ -47,7 +50,7 @@ const Analysis = () => {
                         <Eye className="h-6 w-6 text-white" />
                       </div>
                       <div>
-                        <p className="text-white font-medium">My_First_Video.mp4</p>
+                        <p className="text-white font-medium">"{videoTitle}"</p>
                         <p className="text-gray-400 text-sm">Overall Score: 88/100 - 2 hours ago</p>
                       </div>
                     </div>
@@ -80,6 +83,26 @@ const Analysis = () => {
                     </div>
                   </div>
                 </div>
+
+                {/* Video Player */}
+                {videoFile && (
+                  <div className="p-6 bg-gray-800/50 rounded-lg border border-gray-700/30">
+                    <h3 className="text-white text-lg font-semibold mb-4">Analyzed Video</h3>
+                    <div className="relative">
+                      <video
+                        controls
+                        className="w-full rounded-lg"
+                        style={{ maxHeight: '400px' }}
+                      >
+                        <source src={URL.createObjectURL(videoFile)} type={videoFile.type} />
+                        Your browser does not support the video tag.
+                      </video>
+                    </div>
+                    <p className="text-gray-400 text-sm mt-2">
+                      File: {videoFile.name} ({(videoFile.size / (1024 * 1024)).toFixed(2)} MB)
+                    </p>
+                  </div>
+                )}
                 
                 <div className="text-center py-8">
                   <p className="text-gray-500">No more analysis history available.</p>
