@@ -1,7 +1,8 @@
 
 import React from 'react';
-import { BarChart3, TrendingUp, Clock, FileText } from 'lucide-react';
+import { BarChart3, TrendingUp, Clock, FileText, Volume2, Eye } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 import { Link, useLocation } from 'react-router-dom';
 
 const Analysis = () => {
@@ -55,7 +56,7 @@ const Analysis = () => {
             <CardContent>
               <div className="space-y-6">
                 {/* Script Display Section */}
-                <div className="p-6 bg-gray-800/50 rounded-lg border border-gray-700/30">
+                <div className="p-6 bg-gray-800/50 rounded-lg border border-gray-700/30 relative">
                   <div className="flex items-center space-x-2 mb-4">
                     <FileText className="h-5 w-5 text-blue-400" />
                     <h3 className="text-white text-lg font-semibold">Video Script</h3>
@@ -68,7 +69,7 @@ const Analysis = () => {
                   </div>
                   
                   {/* Legend - moved below script and made more concise */}
-                  <div className="p-3 bg-gray-900/30 rounded-lg border border-gray-700/20">
+                  <div className="p-3 bg-gray-900/30 rounded-lg border border-gray-700/20 mb-4">
                     <h4 className="text-white text-sm font-medium mb-2">Analysis Legend</h4>
                     <div className="flex flex-wrap gap-4">
                       {legendItems.map((item, index) => (
@@ -80,14 +81,22 @@ const Analysis = () => {
                     </div>
                   </div>
                   
-                  <p className="text-gray-400 text-xs mt-2">
+                  <p className="text-gray-400 text-xs mb-4">
                     Script extracted from video analysis • {transcript.length} characters
                   </p>
+
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="absolute bottom-4 right-4 bg-gray-800/80 border-gray-600 text-gray-300 hover:bg-gray-700 hover:text-white"
+                  >
+                    Learn More
+                  </Button>
                 </div>
 
                 {/* Video Player */}
                 {videoFile && (
-                  <div className="p-6 bg-gray-800/50 rounded-lg border border-gray-700/30">
+                  <div className="p-6 bg-gray-800/50 rounded-lg border border-gray-700/30 relative">
                     <h3 className="text-white text-lg font-semibold mb-4">Analyzed Video</h3>
                     <div className="relative">
                       <video
@@ -99,9 +108,17 @@ const Analysis = () => {
                         Your browser does not support the video tag.
                       </video>
                     </div>
-                    <p className="text-gray-400 text-sm mt-2">
+                    <p className="text-gray-400 text-sm mt-2 mb-4">
                       File: {videoFile.name} ({(videoFile.size / (1024 * 1024)).toFixed(2)} MB)
                     </p>
+
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      className="absolute bottom-4 right-4 bg-gray-800/80 border-gray-600 text-gray-300 hover:bg-gray-700 hover:text-white"
+                    >
+                      Learn More
+                    </Button>
                   </div>
                 )}
                 
@@ -115,52 +132,70 @@ const Analysis = () => {
             </CardContent>
           </Card>
 
-          {/* Quick Stats */}
+          {/* Visuals Stats */}
           <div className="space-y-6">
-            <Card className="bg-gray-900/50 backdrop-blur-xl border-gray-700/50">
+            <Card className="bg-gray-900/50 backdrop-blur-xl border-gray-700/50 relative">
               <CardHeader>
                 <CardTitle className="text-white flex items-center space-x-2">
-                  <TrendingUp className="h-5 w-5" />
-                  <span>Quick Stats</span>
+                  <Eye className="h-5 w-5" />
+                  <span>Visuals</span>
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="space-y-4">
+                <div className="space-y-4 mb-8">
                   <div>
-                    <p className="text-gray-400 text-sm">Videos Analyzed</p>
-                    <p className="text-2xl font-bold text-white">1</p>
+                    <p className="text-gray-400 text-sm">Pacing</p>
+                    <p className="text-2xl font-bold text-blue-400">Fast</p>
                   </div>
                   <div>
-                    <p className="text-gray-400 text-sm">Average Score</p>
-                    <p className="text-2xl font-bold text-emerald-400">88/100</p>
+                    <p className="text-gray-400 text-sm">Saturation</p>
+                    <p className="text-2xl font-bold text-emerald-400">High</p>
                   </div>
-                  <div>
-                    <p className="text-gray-400 text-sm">Analysis Time</p>
-                    <p className="text-2xl font-bold text-blue-400">~3 min</p>
+                  <div className="text-xs text-gray-500 mt-4">
+                    <p>Visual pacing and color saturation analysis based on frame-by-frame video processing.</p>
                   </div>
                 </div>
+
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="absolute bottom-4 right-4 bg-gray-800/80 border-gray-600 text-gray-300 hover:bg-gray-700 hover:text-white"
+                >
+                  Learn More
+                </Button>
               </CardContent>
             </Card>
 
-            <Card className="bg-gray-900/50 backdrop-blur-xl border-gray-700/50">
+            <Card className="bg-gray-900/50 backdrop-blur-xl border-gray-700/50 relative">
               <CardHeader>
                 <CardTitle className="text-white flex items-center space-x-2">
-                  <Clock className="h-5 w-5" />
-                  <span>Analysis Criteria</span>
+                  <Volume2 className="h-5 w-5" />
+                  <span>Audio</span>
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="space-y-3 text-sm text-gray-400">
+                <div className="space-y-3 text-sm text-gray-400 mb-8">
                   <div className="flex items-center space-x-2">
-                    <span>Hook Strength - Opening impact</span>
+                    <span>Music - Background audio quality</span>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <span>Title Confirmation - Content match</span>
+                    <span>Vocal Enunciation - Speech clarity</span>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <span>Continue Motive - Retention drive</span>
+                    <span>Pacing - Audio tempo analysis</span>
+                  </div>
+                  <div className="text-xs text-gray-500 mt-4">
+                    <p>Comprehensive audio analysis including voice clarity, background music balance, and speech pacing metrics.</p>
                   </div>
                 </div>
+
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="absolute bottom-4 right-4 bg-gray-800/80 border-gray-600 text-gray-300 hover:bg-gray-700 hover:text-white"
+                >
+                  Learn More
+                </Button>
               </CardContent>
             </Card>
           </div>
