@@ -1,6 +1,5 @@
-
 import React from 'react';
-import { BarChart3, TrendingUp, Clock, Eye, Target, CheckCircle, PlayCircle, FileText } from 'lucide-react';
+import { BarChart3, TrendingUp, Clock, FileText } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Link, useLocation } from 'react-router-dom';
 
@@ -10,6 +9,14 @@ const Analysis = () => {
 
   // Sample transcript - in a real app, this would come from the analysis
   const transcript = "Welcome to my channel! Today we're going to dive deep into the most amazing topic you've ever seen. I know the title promised you something incredible, and I'm here to deliver exactly that. This introduction is going to hook you right from the start because what I'm about to show you will completely change your perspective. The title wasn't clickbait - this is the real deal, and by the end of this video, you'll understand exactly why you need to keep watching until the very end.";
+
+  const legendItems = [
+    { label: 'Hook Strength', color: 'bg-emerald-500' },
+    { label: 'Confirming the Click', color: 'bg-blue-500' },
+    { label: 'Goal', color: 'bg-purple-500' },
+    { label: 'Motive', color: 'bg-orange-500' },
+    { label: 'Progression', color: 'bg-pink-500' }
+  ];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800">
@@ -46,53 +53,26 @@ const Analysis = () => {
             </CardHeader>
             <CardContent>
               <div className="space-y-6">
-                <div className="p-6 bg-gray-800/50 rounded-lg border border-gray-700/30">
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center space-x-3">
-                      <div className="w-12 h-12 bg-gradient-to-r from-emerald-500 to-green-500 rounded-lg flex items-center justify-center">
-                        <Eye className="h-6 w-6 text-white" />
-                      </div>
-                      <div>
-                        <p className="text-white font-medium">Engagement Analysis</p>
-                        <p className="text-gray-400 text-sm">Overall Score: 88/100 - 2 hours ago</p>
-                      </div>
-                    </div>
-                    <span className="text-emerald-400 text-sm font-semibold">Highly Engaging</span>
-                  </div>
-                  
-                  <div className="grid grid-cols-3 gap-4 mt-4">
-                    <div className="text-center">
-                      <div className="flex items-center justify-center mb-2">
-                        <Target className="h-4 w-4 text-emerald-400 mr-1" />
-                        <span className="text-xs text-gray-400 uppercase tracking-wide">Hook Strength</span>
-                      </div>
-                      <p className="text-lg font-bold text-white">92%</p>
-                    </div>
-                    
-                    <div className="text-center">
-                      <div className="flex items-center justify-center mb-2">
-                        <CheckCircle className="h-4 w-4 text-blue-400 mr-1" />
-                        <span className="text-xs text-gray-400 uppercase tracking-wide">Title Match</span>
-                      </div>
-                      <p className="text-lg font-bold text-white">88%</p>
-                    </div>
-                    
-                    <div className="text-center">
-                      <div className="flex items-center justify-center mb-2">
-                        <PlayCircle className="h-4 w-4 text-purple-400 mr-1" />
-                        <span className="text-xs text-gray-400 uppercase tracking-wide">Continue Motive</span>
-                      </div>
-                      <p className="text-lg font-bold text-white">85%</p>
-                    </div>
-                  </div>
-                </div>
-
                 {/* Script Display Section */}
                 <div className="p-6 bg-gray-800/50 rounded-lg border border-gray-700/30">
                   <div className="flex items-center space-x-2 mb-4">
                     <FileText className="h-5 w-5 text-blue-400" />
                     <h3 className="text-white text-lg font-semibold">Video Script</h3>
                   </div>
+                  
+                  {/* Legend */}
+                  <div className="mb-4 p-4 bg-gray-900/30 rounded-lg border border-gray-700/20">
+                    <h4 className="text-white text-sm font-medium mb-3">Analysis Legend</h4>
+                    <div className="grid grid-cols-2 lg:grid-cols-5 gap-3">
+                      {legendItems.map((item, index) => (
+                        <div key={index} className="flex items-center space-x-2">
+                          <div className={`w-3 h-3 rounded-full ${item.color}`}></div>
+                          <span className="text-gray-300 text-xs">{item.label}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
                   <div className="bg-gray-900/50 rounded-lg p-4 border border-gray-700/30">
                     <p className="text-gray-300 leading-relaxed text-sm">
                       {transcript}
@@ -170,15 +150,15 @@ const Analysis = () => {
               <CardContent>
                 <div className="space-y-3 text-sm text-gray-400">
                   <div className="flex items-center space-x-2">
-                    <Target className="h-4 w-4 text-emerald-400" />
+                    {/* <Target className="h-4 w-4 text-emerald-400" /> */}
                     <span>Hook Strength - Opening impact</span>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <CheckCircle className="h-4 w-4 text-blue-400" />
+                    {/* <CheckCircle className="h-4 w-4 text-blue-400" /> */}
                     <span>Title Confirmation - Content match</span>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <PlayCircle className="h-4 w-4 text-purple-400" />
+                    {/* <PlayCircle className="h-4 w-4 text-purple-400" /> */}
                     <span>Continue Motive - Retention drive</span>
                   </div>
                 </div>
