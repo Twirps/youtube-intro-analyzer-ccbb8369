@@ -1,12 +1,15 @@
 
 import React from 'react';
-import { BarChart3, TrendingUp, Clock, Eye, Target, CheckCircle, PlayCircle } from 'lucide-react';
+import { BarChart3, TrendingUp, Clock, Eye, Target, CheckCircle, PlayCircle, FileText } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Link, useLocation } from 'react-router-dom';
 
 const Analysis = () => {
   const location = useLocation();
   const { videoTitle, videoFile } = location.state || { videoTitle: 'Untitled Video', videoFile: null };
+
+  // Sample transcript - in a real app, this would come from the analysis
+  const transcript = "Welcome to my channel! Today we're going to dive deep into the most amazing topic you've ever seen. I know the title promised you something incredible, and I'm here to deliver exactly that. This introduction is going to hook you right from the start because what I'm about to show you will completely change your perspective. The title wasn't clickbait - this is the real deal, and by the end of this video, you'll understand exactly why you need to keep watching until the very end.";
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800">
@@ -36,10 +39,10 @@ const Analysis = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Recent Analysis */}
+          {/* Analysis Results */}
           <Card className="lg:col-span-2 bg-gray-900/50 backdrop-blur-xl border-gray-700/50">
             <CardHeader>
-              <CardTitle className="text-white">Recent Analysis</CardTitle>
+              <CardTitle className="text-white">"{videoTitle}"</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-6">
@@ -50,7 +53,7 @@ const Analysis = () => {
                         <Eye className="h-6 w-6 text-white" />
                       </div>
                       <div>
-                        <p className="text-white font-medium">"{videoTitle}"</p>
+                        <p className="text-white font-medium">Engagement Analysis</p>
                         <p className="text-gray-400 text-sm">Overall Score: 88/100 - 2 hours ago</p>
                       </div>
                     </div>
@@ -82,6 +85,22 @@ const Analysis = () => {
                       <p className="text-lg font-bold text-white">85%</p>
                     </div>
                   </div>
+                </div>
+
+                {/* Script Display Section */}
+                <div className="p-6 bg-gray-800/50 rounded-lg border border-gray-700/30">
+                  <div className="flex items-center space-x-2 mb-4">
+                    <FileText className="h-5 w-5 text-blue-400" />
+                    <h3 className="text-white text-lg font-semibold">Video Script</h3>
+                  </div>
+                  <div className="bg-gray-900/50 rounded-lg p-4 border border-gray-700/30">
+                    <p className="text-gray-300 leading-relaxed text-sm">
+                      {transcript}
+                    </p>
+                  </div>
+                  <p className="text-gray-400 text-xs mt-2">
+                    Script extracted from video analysis • {transcript.length} characters
+                  </p>
                 </div>
 
                 {/* Video Player */}
