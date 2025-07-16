@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { BarChart3, TrendingUp, Clock, FileText } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -60,10 +61,16 @@ const Analysis = () => {
                     <h3 className="text-white text-lg font-semibold">Video Script</h3>
                   </div>
                   
-                  {/* Legend */}
-                  <div className="mb-4 p-4 bg-gray-900/30 rounded-lg border border-gray-700/20">
-                    <h4 className="text-white text-sm font-medium mb-3">Analysis Legend</h4>
-                    <div className="grid grid-cols-2 lg:grid-cols-5 gap-3">
+                  <div className="bg-gray-900/50 rounded-lg p-4 border border-gray-700/30 mb-4">
+                    <p className="text-gray-300 leading-relaxed text-sm">
+                      {transcript}
+                    </p>
+                  </div>
+                  
+                  {/* Legend - moved below script and made more concise */}
+                  <div className="p-3 bg-gray-900/30 rounded-lg border border-gray-700/20">
+                    <h4 className="text-white text-sm font-medium mb-2">Analysis Legend</h4>
+                    <div className="flex flex-wrap gap-4">
                       {legendItems.map((item, index) => (
                         <div key={index} className="flex items-center space-x-2">
                           <div className={`w-3 h-3 rounded-full ${item.color}`}></div>
@@ -72,12 +79,7 @@ const Analysis = () => {
                       ))}
                     </div>
                   </div>
-
-                  <div className="bg-gray-900/50 rounded-lg p-4 border border-gray-700/30">
-                    <p className="text-gray-300 leading-relaxed text-sm">
-                      {transcript}
-                    </p>
-                  </div>
+                  
                   <p className="text-gray-400 text-xs mt-2">
                     Script extracted from video analysis • {transcript.length} characters
                   </p>
@@ -150,15 +152,12 @@ const Analysis = () => {
               <CardContent>
                 <div className="space-y-3 text-sm text-gray-400">
                   <div className="flex items-center space-x-2">
-                    {/* <Target className="h-4 w-4 text-emerald-400" /> */}
                     <span>Hook Strength - Opening impact</span>
                   </div>
                   <div className="flex items-center space-x-2">
-                    {/* <CheckCircle className="h-4 w-4 text-blue-400" /> */}
                     <span>Title Confirmation - Content match</span>
                   </div>
                   <div className="flex items-center space-x-2">
-                    {/* <PlayCircle className="h-4 w-4 text-purple-400" /> */}
                     <span>Continue Motive - Retention drive</span>
                   </div>
                 </div>
