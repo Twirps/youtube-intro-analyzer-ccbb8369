@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { BarChart3, TrendingUp, Clock, FileText, Volume2, Eye } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -199,7 +198,6 @@ const Analysis = () => {
               </CardContent>
             </Card>
           </div>
-        </div>
       </div>
     </div>
   );
