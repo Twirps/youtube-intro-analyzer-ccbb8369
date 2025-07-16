@@ -144,15 +144,14 @@ const Analysis = () => {
               <CardContent>
                 <div className="space-y-4 mb-8">
                   <div>
-                    <p className="text-gray-400 text-sm">Pacing</p>
-                    <p className="text-2xl font-bold text-blue-400">Fast</p>
+                    <h4 className="text-white text-lg font-semibold mb-1">Pacing</h4>
+                    <p className="text-2xl font-bold text-blue-400 mb-2">Fast</p>
+                    <p className="text-gray-400 text-sm">The video maintains rapid cuts and transitions, keeping viewers engaged with quick visual changes.</p>
                   </div>
                   <div>
-                    <p className="text-gray-400 text-sm">Saturation</p>
-                    <p className="text-2xl font-bold text-emerald-400">High</p>
-                  </div>
-                  <div className="text-xs text-gray-500 mt-4">
-                    <p>Visual pacing and color saturation analysis based on frame-by-frame video processing.</p>
+                    <h4 className="text-white text-lg font-semibold mb-1">Saturation</h4>
+                    <p className="text-2xl font-bold text-emerald-400 mb-2">High</p>
+                    <p className="text-gray-400 text-sm">Colors appear vibrant and eye-catching, creating an energetic and attention-grabbing visual experience.</p>
                   </div>
                 </div>
 
@@ -174,18 +173,21 @@ const Analysis = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="space-y-3 text-sm text-gray-400 mb-8">
-                  <div className="flex items-center space-x-2">
-                    <span>Music - Background audio quality</span>
+                <div className="space-y-4 mb-8">
+                  <div>
+                    <h4 className="text-white text-lg font-semibold mb-1">Music</h4>
+                    <p className="text-2xl font-bold text-purple-400 mb-2">Balanced</p>
+                    <p className="text-gray-400 text-sm">Background music complements the content without overpowering the speaker's voice.</p>
                   </div>
-                  <div className="flex items-center space-x-2">
-                    <span>Vocal Enunciation - Speech clarity</span>
+                  <div>
+                    <h4 className="text-white text-lg font-semibold mb-1">Vocal Enunciation</h4>
+                    <p className="text-2xl font-bold text-green-400 mb-2">Clear</p>
+                    <p className="text-gray-400 text-sm">Speech is crisp and well-articulated, making the content easy to understand.</p>
                   </div>
-                  <div className="flex items-center space-x-2">
-                    <span>Pacing - Audio tempo analysis</span>
-                  </div>
-                  <div className="text-xs text-gray-500 mt-4">
-                    <p>Comprehensive audio analysis including voice clarity, background music balance, and speech pacing metrics.</p>
+                  <div>
+                    <h4 className="text-white text-lg font-semibold mb-1">Pacing</h4>
+                    <p className="text-2xl font-bold text-orange-400 mb-2">Moderate</p>
+                    <p className="text-gray-400 text-sm">Speaking tempo is well-controlled, allowing viewers to follow along comfortably.</p>
                   </div>
                 </div>
 
