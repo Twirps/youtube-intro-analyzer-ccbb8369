@@ -17,6 +17,7 @@ const ScriptAnalysis = () => {
     { type: 'system', content: 'Welcome! I can help you improve your video script. What would you like to work on?' }
   ]);
   const [currentMessage, setCurrentMessage] = useState('');
+  const [showAllRecommendations, setShowAllRecommendations] = useState(false);
 
   const legendItems = [
     { label: 'Hook Strength', color: 'bg-emerald-500' },
@@ -44,8 +45,22 @@ const ScriptAnalysis = () => {
       description: "Add a time-sensitive element to encourage immediate action.",
       priority: "Medium",
       example: "Add phrases like 'before it's too late' or 'the window is closing on this opportunity'"
+    },
+    {
+      title: "Improve Storytelling",
+      description: "Add a personal story or case study to make your content more relatable.",
+      priority: "Low",
+      example: "Share a specific moment when this strategy helped you overcome a challenge"
+    },
+    {
+      title: "Add Social Proof",
+      description: "Include testimonials or statistics to build credibility.",
+      priority: "Medium",
+      example: "Mention that '10,000+ students have used this method successfully'"
     }
   ];
+
+  const visibleRecommendations = showAllRecommendations ? recommendations : recommendations.slice(0, 3);
 
   const handleSendMessage = () => {
     if (currentMessage.trim()) {
@@ -137,23 +152,36 @@ const ScriptAnalysis = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="space-y-4">
-                  {recommendations.map((rec, index) => (
-                    <div key={index} className="p-4 bg-gray-800/30 rounded-lg border border-gray-700/20">
-                      <div className="flex items-start justify-between mb-2">
-                        <h4 className="text-white font-medium">{rec.title}</h4>
+                <div className="space-y-3">
+                  {visibleRecommendations.map((rec, index) => (
+                    <div key={index} className="p-3 bg-gray-800/30 rounded-lg border border-gray-700/20">
+                      <div className="flex items-start justify-between mb-1">
+                        <h4 className="text-white font-medium text-sm">{rec.title}</h4>
                         <span className={`text-xs px-2 py-1 rounded-full ${
-                          rec.priority === 'High' ? 'bg-red-500/20 text-red-300' : 'bg-yellow-500/20 text-yellow-300'
+                          rec.priority === 'High' ? 'bg-red-500/20 text-red-300' : 
+                          rec.priority === 'Medium' ? 'bg-yellow-500/20 text-yellow-300' :
+                          'bg-gray-500/20 text-gray-300'
                         }`}>
                           {rec.priority}
                         </span>
                       </div>
-                      <p className="text-gray-400 text-sm mb-3">{rec.description}</p>
-                      <div className="bg-gray-900/50 rounded p-3 border-l-2 border-blue-400">
+                      <p className="text-gray-400 text-xs mb-2">{rec.description}</p>
+                      <div className="bg-gray-900/50 rounded p-2 border-l-2 border-blue-400">
                         <p className="text-gray-300 text-xs font-mono">{rec.example}</p>
                       </div>
                     </div>
                   ))}
+                  
+                  {recommendations.length > 3 && (
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => setShowAllRecommendations(!showAllRecommendations)}
+                      className="w-full text-gray-400 hover:text-white mt-2"
+                    >
+                      {showAllRecommendations ? 'Show Less' : `Show ${recommendations.length - 3} More`}
+                    </Button>
+                  )}
                 </div>
               </CardContent>
             </Card>
