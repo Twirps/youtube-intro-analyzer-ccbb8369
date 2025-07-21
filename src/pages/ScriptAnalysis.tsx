@@ -19,6 +19,7 @@ const ScriptAnalysis = () => {
   const [currentMessage, setCurrentMessage] = useState('');
   const [showAllRecommendations, setShowAllRecommendations] = useState(false);
   const [draggedIndex, setDraggedIndex] = useState(null);
+  const [dragOverIndex, setDragOverIndex] = useState(null);
 
   const legendItems = [
     { label: 'Hook Strength', color: 'bg-emerald-500' },
@@ -84,6 +85,13 @@ const ScriptAnalysis = () => {
   const handleDragStart = (e, index) => {
     setDraggedIndex(index);
     e.dataTransfer.effectAllowed = 'move';
+    e.target.style.opacity = '0.5';
+  };
+
+  const handleDragEnd = (e) => {
+    e.target.style.opacity = '1';
+    setDraggedIndex(null);
+    setDragOverIndex(null);
   };
 
   const handleDragOver = (e) => {
@@ -91,9 +99,22 @@ const ScriptAnalysis = () => {
     e.dataTransfer.dropEffect = 'move';
   };
 
+  const handleDragEnter = (e, index) => {
+    e.preventDefault();
+    if (draggedIndex !== index) {
+      setDragOverIndex(index);
+    }
+  };
+
+  const handleDragLeave = (e) => {
+    if (!e.currentTarget.contains(e.relatedTarget)) {
+      setDragOverIndex(null);
+    }
+  };
+
   const handleDrop = (e, dropIndex) => {
     e.preventDefault();
-    if (draggedIndex === null) return;
+    if (draggedIndex === null || draggedIndex === dropIndex) return;
 
     const newRecommendations = [...recommendations];
     const draggedItem = newRecommendations[draggedIndex];
@@ -106,6 +127,7 @@ const ScriptAnalysis = () => {
     
     setRecommendations(newRecommendations);
     setDraggedIndex(null);
+    setDragOverIndex(null);
   };
 
   return (
@@ -130,8 +152,8 @@ const ScriptAnalysis = () => {
 
       <div className="max-w-7xl mx-auto px-4 py-12">
         {/* Header with Back Button */}
-        <div className="flex items-center mb-8">
-          <Link to="/analysis" className="flex items-center space-x-2 text-gray-300 hover:text-white transition-colors mr-6">
+        <div className="text-center mb-8">
+          <Link to="/analysis" className="inline-flex items-center space-x-2 text-gray-300 hover:text-white transition-colors mb-6">
             <ArrowLeft className="h-5 w-5" />
             <span>Back to Analysis</span>
           </Link>
@@ -191,10 +213,19 @@ const ScriptAnalysis = () => {
                   {visibleRecommendations.map((rec, index) => (
                     <div 
                       key={index} 
-                      className="p-3 bg-gray-800/30 rounded-lg border border-gray-700/20 cursor-move hover:bg-gray-800/40 transition-colors"
+                      className={`p-3 bg-gray-800/30 rounded-lg border border-gray-700/20 cursor-move transition-all duration-300 ease-in-out transform ${
+                        draggedIndex === index 
+                          ? 'scale-105 shadow-lg rotate-1 opacity-50' 
+                          : dragOverIndex === index 
+                            ? 'scale-102 border-blue-400/50 bg-gray-800/50' 
+                            : 'hover:bg-gray-800/40 hover:scale-101'
+                      }`}
                       draggable
                       onDragStart={(e) => handleDragStart(e, index)}
+                      onDragEnd={handleDragEnd}
                       onDragOver={handleDragOver}
+                      onDragEnter={(e) => handleDragEnter(e, index)}
+                      onDragLeave={handleDragLeave}
                       onDrop={(e) => handleDrop(e, index)}
                     >
                       <div className="flex items-start justify-between mb-1">
