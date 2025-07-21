@@ -18,6 +18,7 @@ const ScriptAnalysis = () => {
   ]);
   const [currentMessage, setCurrentMessage] = useState('');
   const [showAllRecommendations, setShowAllRecommendations] = useState(false);
+  const [draggedIndex, setDraggedIndex] = useState(null);
 
   const legendItems = [
     { label: 'Hook Strength', color: 'bg-emerald-500' },
@@ -27,7 +28,7 @@ const ScriptAnalysis = () => {
     { label: 'Progression', color: 'bg-pink-500' }
   ];
 
-  const recommendations = [
+  const initialRecommendations = [
     {
       title: "Strengthen Your Hook",
       description: "Consider starting with a more specific, attention-grabbing statement rather than a general welcome.",
@@ -60,7 +61,14 @@ const ScriptAnalysis = () => {
     }
   ];
 
-  const visibleRecommendations = showAllRecommendations ? recommendations : recommendations.slice(0, 3);
+  // Sort by priority: High > Medium > Low
+  const priorityOrder = { 'High': 3, 'Medium': 2, 'Low': 1 };
+  const sortedRecommendations = [...initialRecommendations].sort((a, b) => 
+    priorityOrder[b.priority] - priorityOrder[a.priority]
+  );
+
+  const [recommendations, setRecommendations] = useState(sortedRecommendations);
+  const visibleRecommendations = showAllRecommendations ? recommendations : recommendations.slice(0, 2);
 
   const handleSendMessage = () => {
     if (currentMessage.trim()) {
@@ -71,6 +79,33 @@ const ScriptAnalysis = () => {
       ]);
       setCurrentMessage('');
     }
+  };
+
+  const handleDragStart = (e, index) => {
+    setDraggedIndex(index);
+    e.dataTransfer.effectAllowed = 'move';
+  };
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+  };
+
+  const handleDrop = (e, dropIndex) => {
+    e.preventDefault();
+    if (draggedIndex === null) return;
+
+    const newRecommendations = [...recommendations];
+    const draggedItem = newRecommendations[draggedIndex];
+    
+    // Remove the dragged item
+    newRecommendations.splice(draggedIndex, 1);
+    
+    // Insert it at the new position
+    newRecommendations.splice(dropIndex, 0, draggedItem);
+    
+    setRecommendations(newRecommendations);
+    setDraggedIndex(null);
   };
 
   return (
@@ -154,7 +189,14 @@ const ScriptAnalysis = () => {
               <CardContent>
                 <div className="space-y-3">
                   {visibleRecommendations.map((rec, index) => (
-                    <div key={index} className="p-3 bg-gray-800/30 rounded-lg border border-gray-700/20">
+                    <div 
+                      key={index} 
+                      className="p-3 bg-gray-800/30 rounded-lg border border-gray-700/20 cursor-move hover:bg-gray-800/40 transition-colors"
+                      draggable
+                      onDragStart={(e) => handleDragStart(e, index)}
+                      onDragOver={handleDragOver}
+                      onDrop={(e) => handleDrop(e, index)}
+                    >
                       <div className="flex items-start justify-between mb-1">
                         <h4 className="text-white font-medium text-sm">{rec.title}</h4>
                         <span className={`text-xs px-2 py-1 rounded-full ${
@@ -172,14 +214,14 @@ const ScriptAnalysis = () => {
                     </div>
                   ))}
                   
-                  {recommendations.length > 3 && (
+                  {recommendations.length > 2 && (
                     <Button
                       variant="ghost"
                       size="sm"
                       onClick={() => setShowAllRecommendations(!showAllRecommendations)}
                       className="w-full text-gray-400 hover:text-white mt-2"
                     >
-                      {showAllRecommendations ? 'Show Less' : `Show ${recommendations.length - 3} More`}
+                      {showAllRecommendations ? 'Show Less' : `Show ${recommendations.length - 2} More`}
                     </Button>
                   )}
                 </div>
