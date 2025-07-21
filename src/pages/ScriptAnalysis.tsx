@@ -93,9 +93,9 @@ const ScriptAnalysis = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
-          {/* Script Display */}
-          <Card className="xl:col-span-2 bg-gray-900/50 backdrop-blur-xl border-gray-700/50">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Left Side - Script Display */}
+          <Card className="bg-gray-900/50 backdrop-blur-xl border-gray-700/50">
             <CardHeader>
               <CardTitle className="text-white flex items-center space-x-2">
                 <FileText className="h-5 w-5" />
@@ -122,13 +122,22 @@ const ScriptAnalysis = () => {
                     ))}
                   </div>
                 </div>
+              </div>
+            </CardContent>
+          </Card>
 
-                {/* Recommendations */}
+          {/* Right Side - Recommendations and Chat */}
+          <div className="space-y-8">
+            {/* Recommendations */}
+            <Card className="bg-gray-900/50 backdrop-blur-xl border-gray-700/50">
+              <CardHeader>
+                <CardTitle className="text-white flex items-center space-x-2">
+                  <Lightbulb className="h-5 w-5 text-yellow-400" />
+                  <span>Recommendations</span>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
                 <div className="space-y-4">
-                  <h3 className="text-white text-lg font-semibold flex items-center space-x-2">
-                    <Lightbulb className="h-5 w-5 text-yellow-400" />
-                    <span>Recommendations</span>
-                  </h3>
                   {recommendations.map((rec, index) => (
                     <div key={index} className="p-4 bg-gray-800/30 rounded-lg border border-gray-700/20">
                       <div className="flex items-start justify-between mb-2">
@@ -146,53 +155,53 @@ const ScriptAnalysis = () => {
                     </div>
                   ))}
                 </div>
-              </div>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
 
-          {/* Chat Section */}
-          <Card className="bg-gray-900/50 backdrop-blur-xl border-gray-700/50">
-            <CardHeader>
-              <CardTitle className="text-white flex items-center space-x-2">
-                <MessageSquare className="h-5 w-5" />
-                <span>Script Suggestions</span>
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="flex flex-col h-96">
-                {/* Chat Messages */}
-                <div className="flex-1 overflow-y-auto space-y-3 mb-4">
-                  {chatMessages.map((message, index) => (
-                    <div key={index} className={`p-3 rounded-lg ${
-                      message.type === 'user' 
-                        ? 'bg-blue-600/20 text-blue-300 ml-4' 
-                        : 'bg-gray-800/50 text-gray-300 mr-4'
-                    }`}>
-                      <p className="text-sm">{message.content}</p>
-                    </div>
-                  ))}
-                </div>
+            {/* Chat Section */}
+            <Card className="bg-gray-900/50 backdrop-blur-xl border-gray-700/50">
+              <CardHeader>
+                <CardTitle className="text-white flex items-center space-x-2">
+                  <MessageSquare className="h-5 w-5" />
+                  <span>Script Suggestions</span>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="flex flex-col h-96">
+                  {/* Chat Messages */}
+                  <div className="flex-1 overflow-y-auto space-y-3 mb-4">
+                    {chatMessages.map((message, index) => (
+                      <div key={index} className={`p-3 rounded-lg ${
+                        message.type === 'user' 
+                          ? 'bg-blue-600/20 text-blue-300 ml-4' 
+                          : 'bg-gray-800/50 text-gray-300 mr-4'
+                      }`}>
+                        <p className="text-sm">{message.content}</p>
+                      </div>
+                    ))}
+                  </div>
 
-                {/* Chat Input */}
-                <div className="flex space-x-2">
-                  <Input
-                    value={currentMessage}
-                    onChange={(e) => setCurrentMessage(e.target.value)}
-                    placeholder="Ask for script suggestions..."
-                    className="flex-1 bg-gray-800/50 border-gray-700 text-white placeholder-gray-400"
-                    onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-                  />
-                  <Button 
-                    onClick={handleSendMessage}
-                    size="sm"
-                    className="bg-blue-600 hover:bg-blue-700 text-white"
-                  >
-                    <Send className="h-4 w-4" />
-                  </Button>
+                  {/* Chat Input */}
+                  <div className="flex space-x-2">
+                    <Input
+                      value={currentMessage}
+                      onChange={(e) => setCurrentMessage(e.target.value)}
+                      placeholder="Ask for script suggestions..."
+                      className="flex-1 bg-gray-800/50 border-gray-700 text-white placeholder-gray-400"
+                      onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+                    />
+                    <Button 
+                      onClick={handleSendMessage}
+                      size="sm"
+                      className="bg-blue-600 hover:bg-blue-700 text-white"
+                    >
+                      <Send className="h-4 w-4" />
+                    </Button>
+                  </div>
                 </div>
-              </div>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
+          </div>
         </div>
       </div>
     </div>
