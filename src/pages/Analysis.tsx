@@ -85,13 +85,15 @@ const Analysis = () => {
                     Script extracted from video analysis • {transcript.length} characters
                   </p>
 
-                  <Button 
-                    variant="outline" 
-                    size="sm" 
-                    className="absolute bottom-4 right-4 bg-gray-800/80 border-gray-600 text-gray-300 hover:bg-gray-700 hover:text-white"
-                  >
-                    Learn More
-                  </Button>
+                  <Link to="/script-analysis" state={{ videoTitle, transcript }}>
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      className="absolute bottom-4 right-4 bg-gray-800/80 border-gray-600 text-gray-300 hover:bg-gray-700 hover:text-white"
+                    >
+                      Learn More
+                    </Button>
+                  </Link>
                 </div>
 
                 {/* Video Player */}
