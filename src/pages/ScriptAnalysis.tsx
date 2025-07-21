@@ -152,17 +152,18 @@ const ScriptAnalysis = () => {
 
       <div className="max-w-7xl mx-auto px-4 py-12">
         {/* Header with Back Button */}
-        <div className="text-center mb-8">
-          <Link to="/analysis" className="inline-flex items-center space-x-2 text-gray-300 hover:text-white transition-colors mb-6">
+        <div className="flex items-center justify-between mb-8">
+          <Link to="/analysis" className="flex items-center space-x-2 text-gray-300 hover:text-white transition-colors">
             <ArrowLeft className="h-5 w-5" />
             <span>Back to Analysis</span>
           </Link>
-          <div>
+          <div className="text-center flex-1 mx-8">
             <h1 className="text-4xl font-bold text-white mb-2">Script Analysis</h1>
             <p className="text-xl text-gray-300">
               Detailed analysis and recommendations for "{videoTitle}"
             </p>
           </div>
+          <div className="w-32"></div> {/* Spacer for balance */}
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -268,7 +269,7 @@ const ScriptAnalysis = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="flex flex-col h-96">
+                <div className="flex flex-col h-72">
                   {/* Chat Messages */}
                   <div className="flex-1 overflow-y-auto space-y-3 mb-4">
                     {chatMessages.map((message, index) => (
