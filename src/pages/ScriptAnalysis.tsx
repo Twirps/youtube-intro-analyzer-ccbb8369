@@ -167,37 +167,51 @@ const ScriptAnalysis = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Left Side - Script Display */}
-          <Card className="bg-gray-900/50 backdrop-blur-xl border-gray-700/50">
-            <CardHeader>
-              <CardTitle className="text-white flex items-center space-x-2">
-                <FileText className="h-5 w-5" />
-                <span>Video Script Analysis</span>
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-6">
-                <div className="bg-gray-800/50 rounded-lg p-4 border border-gray-700/30">
-                  <p className="text-gray-300 leading-relaxed text-sm">
-                    {transcript}
-                  </p>
-                </div>
-                
-                {/* Legend */}
-                <div className="p-3 bg-gray-900/30 rounded-lg border border-gray-700/20">
-                  <h4 className="text-white text-sm font-medium mb-2">Analysis Legend</h4>
-                  <div className="flex flex-wrap gap-4">
-                    {legendItems.map((item, index) => (
-                      <div key={index} className="flex items-center space-x-2">
-                        <div className={`w-3 h-3 rounded-full ${item.color}`}></div>
-                        <span className="text-gray-300 text-xs">{item.label}</span>
-                      </div>
-                    ))}
+          {/* Left Side - Script Display and Summary */}
+          <div className="space-y-8">
+            <Card className="bg-gray-900/50 backdrop-blur-xl border-gray-700/50">
+              <CardHeader>
+                <CardTitle className="text-white flex items-center space-x-2">
+                  <FileText className="h-5 w-5" />
+                  <span>Video Script Analysis</span>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-6">
+                  <div className="bg-gray-800/50 rounded-lg p-4 border border-gray-700/30">
+                    <p className="text-gray-300 leading-relaxed text-sm">
+                      {transcript}
+                    </p>
+                  </div>
+                  
+                  {/* Legend */}
+                  <div className="p-3 bg-gray-900/30 rounded-lg border border-gray-700/20">
+                    <h4 className="text-white text-sm font-medium mb-2">Analysis Legend</h4>
+                    <div className="flex flex-wrap gap-4">
+                      {legendItems.map((item, index) => (
+                        <div key={index} className="flex items-center space-x-2">
+                          <div className={`w-3 h-3 rounded-full ${item.color}`}></div>
+                          <span className="text-gray-300 text-xs">{item.label}</span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
-              </div>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
+
+            {/* Summary of Transcription */}
+            <Card className="bg-gray-900/50 backdrop-blur-xl border-gray-700/50">
+              <CardHeader>
+                <CardTitle className="text-white">Summary of Transcription</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-gray-300 text-sm">
+                  (A summary of the transcription will appear here.)
+                </div>
+              </CardContent>
+            </Card>
+          </div>
 
           {/* Right Side - Recommendations and Chat */}
           <div className="space-y-8">
