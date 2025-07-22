@@ -201,13 +201,15 @@ const ScriptAnalysis = () => {
             </Card>
 
             {/* Summary of Transcription */}
-            <Card className="bg-gray-900/50 backdrop-blur-xl border-gray-700/50">
-              <CardHeader>
-                <CardTitle className="text-white">Summary of Transcription</CardTitle>
+            <Card className="bg-gray-800/80 backdrop-blur-xl border-gray-600/40">
+              <CardHeader className="pb-4">
+                <CardTitle className="text-white text-lg font-medium">Summary of Transcription</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-gray-300 text-sm">
-                  (A summary of the transcription will appear here.)
+                <div className="bg-gray-700/60 rounded-md p-4 border border-gray-600/30">
+                  <div className="text-gray-300 text-sm font-mono">
+                    (A summary of the transcription will appear here.)
+                  </div>
                 </div>
               </CardContent>
             </Card>
