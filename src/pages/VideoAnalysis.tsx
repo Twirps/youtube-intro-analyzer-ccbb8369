@@ -168,20 +168,20 @@ const VideoAnalysis = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="aspect-video bg-gray-800/50 rounded-lg border border-gray-700/30 overflow-hidden">
-                  <video 
-                    className="w-full h-full object-cover"
-                    controls
-                    poster="/placeholder.svg"
-                  >
-                    <source src={videoUrl} type="video/mp4" />
-                    Your browser does not support the video tag.
-                  </video>
-                </div>
-                
-                {/* Expanded Timeline/Editor Section */}
-                {isVideoExpanded && (
-                  <div className="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
+                {!isVideoExpanded ? (
+                  <div className="aspect-video bg-gray-800/50 rounded-lg border border-gray-700/30 overflow-hidden">
+                    <video 
+                      className="w-full h-full object-cover"
+                      controls
+                      poster="/placeholder.svg"
+                    >
+                      <source src={videoUrl} type="video/mp4" />
+                      Your browser does not support the video tag.
+                    </video>
+                  </div>
+                ) : (
+                  /* Expanded Timeline/Editor Section */
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                     {/* Left Side - Recommendations */}
                     <Card className="bg-gray-800/30 backdrop-blur-xl border-gray-700/30">
                       <CardHeader>
@@ -251,8 +251,20 @@ const VideoAnalysis = () => {
                       </CardContent>
                     </Card>
 
-                    {/* Right Side - Timeline and Controls */}
+                    {/* Right Side - Video Player and Timeline */}
                     <div className="space-y-4">
+                      {/* Video Player */}
+                      <div className="aspect-video bg-gray-800/50 rounded-lg border border-gray-700/30 overflow-hidden">
+                        <video 
+                          className="w-full h-full object-cover"
+                          controls
+                          poster="/placeholder.svg"
+                        >
+                          <source src={videoUrl} type="video/mp4" />
+                          Your browser does not support the video tag.
+                        </video>
+                      </div>
+
                       {/* Timeline Controls */}
                       <div className="flex items-center justify-between bg-gray-800/60 rounded-lg p-4 border border-gray-700/30">
                         <div className="flex items-center space-x-4">
