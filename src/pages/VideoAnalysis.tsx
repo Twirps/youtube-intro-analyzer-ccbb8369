@@ -152,6 +152,9 @@ const VideoAnalysis = () => {
                   <div className="flex items-center space-x-2">
                     <Play className="h-5 w-5" />
                     <span>Video Player</span>
+                    {!isVideoExpanded && (
+                      <span className="text-xs text-gray-400 ml-2">• Click to expand for timeline & recommendations</span>
+                    )}
                   </div>
                   <Button
                     variant="ghost"
@@ -185,15 +188,6 @@ const VideoAnalysis = () => {
                         <div className="bg-gray-700/60 rounded px-3 py-1 text-white text-sm font-mono">
                           0:00:00
                         </div>
-                        <Button variant="ghost" size="sm" className="text-gray-400 hover:text-white">
-                          <Volume2 className="h-4 w-4" />
-                        </Button>
-                        <Button variant="ghost" size="sm" className="text-gray-400 hover:text-white">
-                          <Scissors className="h-4 w-4" />
-                        </Button>
-                        <Button variant="ghost" size="sm" className="text-gray-400 hover:text-white">
-                          <Info className="h-4 w-4" />
-                        </Button>
                       </div>
                       <div className="text-gray-400 text-sm">7:38:56</div>
                     </div>
@@ -243,25 +237,74 @@ const VideoAnalysis = () => {
                       </div>
                     </div>
 
-                    {/* Edit Tools */}
-                    <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-                      {[
-                        { icon: Scissors, label: 'Trim & cut' },
-                        { icon: Volume2, label: 'Audio' },
-                        { icon: Play, label: 'Blur' },
-                        { icon: Info, label: 'End screen' },
-                        { icon: Info, label: 'Info cards' }
-                      ].map((tool, index) => (
-                        <Button
-                          key={index}
-                          variant="outline"
-                          className="flex items-center justify-center space-x-2 h-12 bg-gray-800/30 border-gray-700/50 text-gray-300 hover:bg-gray-700/50 hover:text-white"
-                        >
-                          <tool.icon className="h-4 w-4" />
-                          <span className="text-sm">{tool.label}</span>
-                        </Button>
-                      ))}
-                    </div>
+                    {/* Recommendations inside expanded view */}
+                    <Card className="bg-gray-800/30 backdrop-blur-xl border-gray-700/30">
+                      <CardHeader>
+                        <CardTitle className="text-white flex items-center space-x-2">
+                          <Lightbulb className="h-5 w-5 text-yellow-400" />
+                          <span>Recommendations</span>
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="space-y-3">
+                          {visibleRecommendations.map((rec, index) => (
+                            <div 
+                              key={index} 
+                              className={`p-3 bg-gray-700/30 rounded-lg border border-gray-600/20 cursor-move transition-all duration-300 ease-in-out transform ${
+                                draggedIndex === index 
+                                  ? 'scale-105 shadow-lg rotate-1 opacity-50' 
+                                  : dragOverIndex === index 
+                                    ? 'scale-102 border-blue-400/50 bg-gray-700/50' 
+                                    : 'hover:bg-gray-700/40 hover:scale-101'
+                              }`}
+                              draggable
+                              onDragStart={(e) => handleDragStart(e, index)}
+                              onDragEnd={handleDragEnd}
+                              onDragOver={handleDragOver}
+                              onDragEnter={(e) => handleDragEnter(e, index)}
+                              onDragLeave={handleDragLeave}
+                              onDrop={(e) => handleDrop(e, index)}
+                            >
+                              <div className="flex items-start justify-between mb-1">
+                                <h4 className="text-white font-medium text-sm">{rec.title}</h4>
+                                <div className="flex items-center space-x-2">
+                                  <span className={`text-xs px-2 py-1 rounded-full ${
+                                    rec.priority === 'High' ? 'bg-red-500/20 text-red-300' : 
+                                    rec.priority === 'Medium' ? 'bg-yellow-500/20 text-yellow-300' :
+                                    'bg-gray-500/20 text-gray-300'
+                                  }`}>
+                                    {rec.priority}
+                                  </span>
+                                  <Button
+                                    size="sm"
+                                    variant="ghost"
+                                    className="h-6 w-6 p-0 hover:bg-green-500/20 hover:text-green-400 text-gray-500"
+                                    title="Apply Suggestion"
+                                  >
+                                    <Check className="h-3 w-3" />
+                                  </Button>
+                                </div>
+                              </div>
+                              <p className="text-gray-400 text-xs mb-2">{rec.description}</p>
+                              <div className="bg-gray-900/50 rounded p-2 border-l-2 border-blue-400">
+                                <p className="text-gray-300 text-xs font-mono">{rec.example}</p>
+                              </div>
+                            </div>
+                          ))}
+                          
+                          {recommendations.length > 2 && (
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => setShowAllRecommendations(!showAllRecommendations)}
+                              className="w-full text-gray-400 hover:text-white mt-2"
+                            >
+                              {showAllRecommendations ? 'Show Less' : `Show ${recommendations.length - 2} More`}
+                            </Button>
+                          )}
+                        </div>
+                      </CardContent>
+                    </Card>
                   </div>
                 )}
               </CardContent>
