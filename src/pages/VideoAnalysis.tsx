@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BarChart3, Play, Lightbulb, ArrowLeft, Check } from 'lucide-react';
+import { BarChart3, Play, Lightbulb, ArrowLeft, Check, Maximize2, Minimize2, Scissors, Volume2, Info } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Link, useLocation } from 'react-router-dom';
@@ -14,6 +14,7 @@ const VideoAnalysis = () => {
   const [showAllRecommendations, setShowAllRecommendations] = useState(false);
   const [draggedIndex, setDraggedIndex] = useState(null);
   const [dragOverIndex, setDragOverIndex] = useState(null);
+  const [isVideoExpanded, setIsVideoExpanded] = useState(false);
 
   const initialRecommendations = [
     {
@@ -142,14 +143,25 @@ const VideoAnalysis = () => {
           <div className="w-32"></div> {/* Spacer for balance */}
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className={`grid gap-8 transition-all duration-500 ${isVideoExpanded ? 'grid-cols-1' : 'grid-cols-1 lg:grid-cols-2'}`}>
           {/* Left Side - Video Player */}
           <div className="space-y-8">
             <Card className="bg-gray-900/50 backdrop-blur-xl border-gray-700/50">
               <CardHeader>
-                <CardTitle className="text-white flex items-center space-x-2">
-                  <Play className="h-5 w-5" />
-                  <span>Video Player</span>
+                <CardTitle className="text-white flex items-center justify-between">
+                  <div className="flex items-center space-x-2">
+                    <Play className="h-5 w-5" />
+                    <span>Video Player</span>
+                  </div>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => setIsVideoExpanded(!isVideoExpanded)}
+                    className="text-gray-400 hover:text-white"
+                    title={isVideoExpanded ? 'Collapse Video Editor' : 'Expand Video Editor'}
+                  >
+                    {isVideoExpanded ? <Minimize2 className="h-4 w-4" /> : <Maximize2 className="h-4 w-4" />}
+                  </Button>
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -163,6 +175,95 @@ const VideoAnalysis = () => {
                     Your browser does not support the video tag.
                   </video>
                 </div>
+                
+                {/* Expanded Timeline/Editor Section */}
+                {isVideoExpanded && (
+                  <div className="mt-6 space-y-4">
+                    {/* Timeline Controls */}
+                    <div className="flex items-center justify-between bg-gray-800/60 rounded-lg p-4 border border-gray-700/30">
+                      <div className="flex items-center space-x-4">
+                        <div className="bg-gray-700/60 rounded px-3 py-1 text-white text-sm font-mono">
+                          0:00:00
+                        </div>
+                        <Button variant="ghost" size="sm" className="text-gray-400 hover:text-white">
+                          <Volume2 className="h-4 w-4" />
+                        </Button>
+                        <Button variant="ghost" size="sm" className="text-gray-400 hover:text-white">
+                          <Scissors className="h-4 w-4" />
+                        </Button>
+                        <Button variant="ghost" size="sm" className="text-gray-400 hover:text-white">
+                          <Info className="h-4 w-4" />
+                        </Button>
+                      </div>
+                      <div className="text-gray-400 text-sm">7:38:56</div>
+                    </div>
+
+                    {/* Waveform/Timeline */}
+                    <div className="bg-gray-800/60 rounded-lg border border-gray-700/30 overflow-hidden">
+                      <div className="h-32 bg-gray-900/50 relative p-4">
+                        {/* Timeline markers */}
+                        <div className="flex justify-between text-xs text-gray-500 mb-2">
+                          <span>0:00:00</span>
+                          <span>2:00:00</span>
+                          <span>4:00:00</span>
+                          <span>6:00:00</span>
+                          <span>7:38:56</span>
+                        </div>
+                        
+                        {/* Waveform visualization */}
+                        <div className="flex items-end h-16 space-x-1">
+                          {Array.from({ length: 100 }).map((_, i) => (
+                            <div
+                              key={i}
+                              className="bg-gray-600 flex-1 rounded-sm"
+                              style={{
+                                height: `${Math.random() * 60 + 10}%`,
+                                opacity: Math.random() * 0.8 + 0.2
+                              }}
+                            />
+                          ))}
+                        </div>
+                        
+                        {/* Playhead */}
+                        <div className="absolute top-4 left-8 w-0.5 h-20 bg-white shadow-lg"></div>
+                      </div>
+                      
+                      {/* Video frames thumbnail strip */}
+                      <div className="h-16 bg-gray-800/80 border-t border-gray-700/30 flex">
+                        {Array.from({ length: 12 }).map((_, i) => (
+                          <div
+                            key={i}
+                            className="flex-1 h-full bg-gray-700/50 border-r border-gray-600/30 bg-cover bg-center"
+                            style={{
+                              backgroundImage: 'url(/placeholder.svg)',
+                              opacity: 0.6
+                            }}
+                          />
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Edit Tools */}
+                    <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+                      {[
+                        { icon: Scissors, label: 'Trim & cut' },
+                        { icon: Volume2, label: 'Audio' },
+                        { icon: Play, label: 'Blur' },
+                        { icon: Info, label: 'End screen' },
+                        { icon: Info, label: 'Info cards' }
+                      ].map((tool, index) => (
+                        <Button
+                          key={index}
+                          variant="outline"
+                          className="flex items-center justify-center space-x-2 h-12 bg-gray-800/30 border-gray-700/50 text-gray-300 hover:bg-gray-700/50 hover:text-white"
+                        >
+                          <tool.icon className="h-4 w-4" />
+                          <span className="text-sm">{tool.label}</span>
+                        </Button>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </CardContent>
             </Card>
 
