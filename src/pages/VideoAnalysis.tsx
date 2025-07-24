@@ -179,132 +179,101 @@ const VideoAnalysis = () => {
                   </video>
                 </div>
                 
-                {/* Expanded Timeline/Editor Section */}
+                {/* Expanded Editor Section - Side by Side Layout */}
                 {isVideoExpanded && (
-                  <div className="mt-6 space-y-4">
-                    {/* Timeline Controls */}
-                    <div className="flex items-center justify-between bg-gray-800/60 rounded-lg p-4 border border-gray-700/30">
-                      <div className="flex items-center space-x-4">
-                        <div className="bg-gray-700/60 rounded px-3 py-1 text-white text-sm font-mono">
-                          0:00:00
-                        </div>
-                      </div>
-                      <div className="text-gray-400 text-sm">7:38:56</div>
-                    </div>
-
-                    {/* Waveform/Timeline */}
-                    <div className="bg-gray-800/60 rounded-lg border border-gray-700/30 overflow-hidden">
-                      <div className="h-32 bg-gray-900/50 relative p-4">
-                        {/* Timeline markers */}
-                        <div className="flex justify-between text-xs text-gray-500 mb-2">
-                          <span>0:00:00</span>
-                          <span>2:00:00</span>
-                          <span>4:00:00</span>
-                          <span>6:00:00</span>
-                          <span>7:38:56</span>
-                        </div>
-                        
-                        {/* Waveform visualization */}
-                        <div className="flex items-end h-16 space-x-1">
-                          {Array.from({ length: 100 }).map((_, i) => (
-                            <div
-                              key={i}
-                              className="bg-gray-600 flex-1 rounded-sm"
-                              style={{
-                                height: `${Math.random() * 60 + 10}%`,
-                                opacity: Math.random() * 0.8 + 0.2
-                              }}
-                            />
-                          ))}
-                        </div>
-                        
-                        {/* Playhead */}
-                        <div className="absolute top-4 left-8 w-0.5 h-20 bg-white shadow-lg"></div>
-                      </div>
-                      
-                      {/* Video frames thumbnail strip */}
-                      <div className="h-16 bg-gray-800/80 border-t border-gray-700/30 flex">
-                        {Array.from({ length: 12 }).map((_, i) => (
-                          <div
-                            key={i}
-                            className="flex-1 h-full bg-gray-700/50 border-r border-gray-600/30 bg-cover bg-center"
-                            style={{
-                              backgroundImage: 'url(/placeholder.svg)',
-                              opacity: 0.6
-                            }}
-                          />
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Recommendations inside expanded view */}
-                    <Card className="bg-gray-800/30 backdrop-blur-xl border-gray-700/30">
-                      <CardHeader>
-                        <CardTitle className="text-white flex items-center space-x-2">
-                          <Lightbulb className="h-5 w-5 text-yellow-400" />
-                          <span>Recommendations</span>
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="space-y-3">
-                          {visibleRecommendations.map((rec, index) => (
-                            <div 
-                              key={index} 
-                              className={`p-3 bg-gray-700/30 rounded-lg border border-gray-600/20 cursor-move transition-all duration-300 ease-in-out transform ${
-                                draggedIndex === index 
-                                  ? 'scale-105 shadow-lg rotate-1 opacity-50' 
-                                  : dragOverIndex === index 
-                                    ? 'scale-102 border-blue-400/50 bg-gray-700/50' 
-                                    : 'hover:bg-gray-700/40 hover:scale-101'
-                              }`}
-                              draggable
-                              onDragStart={(e) => handleDragStart(e, index)}
-                              onDragEnd={handleDragEnd}
-                              onDragOver={handleDragOver}
-                              onDragEnter={(e) => handleDragEnter(e, index)}
-                              onDragLeave={handleDragLeave}
-                              onDrop={(e) => handleDrop(e, index)}
-                            >
-                              <div className="flex items-start justify-between mb-1">
-                                <h4 className="text-white font-medium text-sm">{rec.title}</h4>
-                                <div className="flex items-center space-x-2">
-                                  <span className={`text-xs px-2 py-1 rounded-full ${
-                                    rec.priority === 'High' ? 'bg-red-500/20 text-red-300' : 
-                                    rec.priority === 'Medium' ? 'bg-yellow-500/20 text-yellow-300' :
-                                    'bg-gray-500/20 text-gray-300'
-                                  }`}>
-                                    {rec.priority}
-                                  </span>
-                                  <Button
-                                    size="sm"
-                                    variant="ghost"
-                                    className="h-6 w-6 p-0 hover:bg-green-500/20 hover:text-green-400 text-gray-500"
-                                    title="Apply Suggestion"
-                                  >
-                                    <Check className="h-3 w-3" />
-                                  </Button>
+                  <div className="mt-6">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                      {/* Left Side - Recommendations */}
+                      <Card className="bg-gray-800/30 backdrop-blur-xl border-gray-700/30">
+                        <CardHeader>
+                          <CardTitle className="text-white flex items-center space-x-2">
+                            <Lightbulb className="h-5 w-5 text-yellow-400" />
+                            <span>Recommendations</span>
+                          </CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                          <div className="space-y-3 max-h-[600px] overflow-y-auto">
+                            {visibleRecommendations.map((rec, index) => (
+                              <div 
+                                key={index} 
+                                className={`p-3 bg-gray-700/30 rounded-lg border border-gray-600/20 cursor-move transition-all duration-300 ease-in-out transform ${
+                                  draggedIndex === index 
+                                    ? 'scale-105 shadow-lg rotate-1 opacity-50' 
+                                    : dragOverIndex === index 
+                                      ? 'scale-102 border-blue-400/50 bg-gray-700/50' 
+                                      : 'hover:bg-gray-700/40 hover:scale-101'
+                                }`}
+                                draggable
+                                onDragStart={(e) => handleDragStart(e, index)}
+                                onDragEnd={handleDragEnd}
+                                onDragOver={handleDragOver}
+                                onDragEnter={(e) => handleDragEnter(e, index)}
+                                onDragLeave={handleDragLeave}
+                                onDrop={(e) => handleDrop(e, index)}
+                              >
+                                <div className="flex items-start justify-between mb-1">
+                                  <h4 className="text-white font-medium text-sm">{rec.title}</h4>
+                                  <div className="flex items-center space-x-2">
+                                    <span className={`text-xs px-2 py-1 rounded-full ${
+                                      rec.priority === 'High' ? 'bg-red-500/20 text-red-300' : 
+                                      rec.priority === 'Medium' ? 'bg-yellow-500/20 text-yellow-300' :
+                                      'bg-gray-500/20 text-gray-300'
+                                    }`}>
+                                      {rec.priority}
+                                    </span>
+                                    <Button
+                                      size="sm"
+                                      variant="ghost"
+                                      className="h-6 w-6 p-0 hover:bg-green-500/20 hover:text-green-400 text-gray-500"
+                                      title="Apply Suggestion"
+                                    >
+                                      <Check className="h-3 w-3" />
+                                    </Button>
+                                  </div>
+                                </div>
+                                <p className="text-gray-400 text-xs mb-2">{rec.description}</p>
+                                <div className="bg-gray-900/50 rounded p-2 border-l-2 border-blue-400">
+                                  <p className="text-gray-300 text-xs font-mono">{rec.example}</p>
                                 </div>
                               </div>
-                              <p className="text-gray-400 text-xs mb-2">{rec.description}</p>
-                              <div className="bg-gray-900/50 rounded p-2 border-l-2 border-blue-400">
-                                <p className="text-gray-300 text-xs font-mono">{rec.example}</p>
-                              </div>
-                            </div>
-                          ))}
-                          
-                          {recommendations.length > 2 && (
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              onClick={() => setShowAllRecommendations(!showAllRecommendations)}
-                              className="w-full text-gray-400 hover:text-white mt-2"
+                            ))}
+                            
+                            {recommendations.length > 2 && (
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                onClick={() => setShowAllRecommendations(!showAllRecommendations)}
+                                className="w-full text-gray-400 hover:text-white mt-2"
+                              >
+                                {showAllRecommendations ? 'Show Less' : `Show ${recommendations.length - 2} More`}
+                              </Button>
+                            )}
+                          </div>
+                        </CardContent>
+                      </Card>
+
+                      {/* Right Side - Video Player Duplicate */}
+                      <Card className="bg-gray-800/30 backdrop-blur-xl border-gray-700/30">
+                        <CardHeader>
+                          <CardTitle className="text-white flex items-center space-x-2">
+                            <Play className="h-5 w-5" />
+                            <span>Video Preview</span>
+                          </CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                          <div className="aspect-video bg-gray-800/50 rounded-lg border border-gray-700/30 overflow-hidden">
+                            <video 
+                              className="w-full h-full object-cover"
+                              controls
+                              poster="/placeholder.svg"
                             >
-                              {showAllRecommendations ? 'Show Less' : `Show ${recommendations.length - 2} More`}
-                            </Button>
-                          )}
-                        </div>
-                      </CardContent>
-                    </Card>
+                              <source src={videoUrl} type="video/mp4" />
+                              Your browser does not support the video tag.
+                            </video>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </div>
                   </div>
                 )}
               </CardContent>
