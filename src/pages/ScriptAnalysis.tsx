@@ -259,6 +259,7 @@ const ScriptAnalysis = () => {
                             size="sm"
                             variant="ghost"
                             className="h-6 w-6 p-0 hover:bg-green-500/20 hover:text-green-400 text-gray-500"
+                            title="Apply Suggestion"
                           >
                             <Check className="h-3 w-3" />
                           </Button>
