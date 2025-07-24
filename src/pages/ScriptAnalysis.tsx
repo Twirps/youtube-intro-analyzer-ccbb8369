@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BarChart3, FileText, MessageSquare, Lightbulb, ArrowLeft, Send } from 'lucide-react';
+import { BarChart3, FileText, MessageSquare, Lightbulb, ArrowLeft, Send, Check } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -247,13 +247,22 @@ const ScriptAnalysis = () => {
                     >
                       <div className="flex items-start justify-between mb-1">
                         <h4 className="text-white font-medium text-sm">{rec.title}</h4>
-                        <span className={`text-xs px-2 py-1 rounded-full ${
-                          rec.priority === 'High' ? 'bg-red-500/20 text-red-300' : 
-                          rec.priority === 'Medium' ? 'bg-yellow-500/20 text-yellow-300' :
-                          'bg-gray-500/20 text-gray-300'
-                        }`}>
-                          {rec.priority}
-                        </span>
+                        <div className="flex items-center space-x-2">
+                          <span className={`text-xs px-2 py-1 rounded-full ${
+                            rec.priority === 'High' ? 'bg-red-500/20 text-red-300' : 
+                            rec.priority === 'Medium' ? 'bg-yellow-500/20 text-yellow-300' :
+                            'bg-gray-500/20 text-gray-300'
+                          }`}>
+                            {rec.priority}
+                          </span>
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            className="h-6 w-6 p-0 hover:bg-green-500/20 hover:text-green-400 text-gray-500"
+                          >
+                            <Check className="h-3 w-3" />
+                          </Button>
+                        </div>
                       </div>
                       <p className="text-gray-400 text-xs mb-2">{rec.description}</p>
                       <div className="bg-gray-900/50 rounded p-2 border-l-2 border-blue-400">
