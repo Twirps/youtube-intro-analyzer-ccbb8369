@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import Analysis from "./pages/Analysis";
 import ScriptAnalysis from "./pages/ScriptAnalysis";
+import VideoAnalysis from "./pages/VideoAnalysis";
 import Transcript from "./pages/Transcript";
 import About from "./pages/About";
 import FAQ from "./pages/FAQ";
@@ -25,6 +26,7 @@ const App = () => (
           <Route path="/transcript" element={<Transcript />} />
           <Route path="/analysis" element={<Analysis />} />
           <Route path="/script-analysis" element={<ScriptAnalysis />} />
+          <Route path="/video-analysis" element={<VideoAnalysis />} />
           <Route path="/about" element={<About />} />
           <Route path="/faq" element={<FAQ />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
