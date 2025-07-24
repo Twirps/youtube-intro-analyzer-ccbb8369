@@ -181,63 +181,8 @@ const VideoAnalysis = () => {
                 
                 {/* Expanded Timeline/Editor Section */}
                 {isVideoExpanded && (
-                  <div className="mt-6 space-y-4">
-                    {/* Timeline Controls */}
-                    <div className="flex items-center justify-between bg-gray-800/60 rounded-lg p-4 border border-gray-700/30">
-                      <div className="flex items-center space-x-4">
-                        <div className="bg-gray-700/60 rounded px-3 py-1 text-white text-sm font-mono">
-                          0:00:00
-                        </div>
-                      </div>
-                      <div className="text-gray-400 text-sm">7:38:56</div>
-                    </div>
-
-                    {/* Waveform/Timeline */}
-                    <div className="bg-gray-800/60 rounded-lg border border-gray-700/30 overflow-hidden">
-                      <div className="h-32 bg-gray-900/50 relative p-4">
-                        {/* Timeline markers */}
-                        <div className="flex justify-between text-xs text-gray-500 mb-2">
-                          <span>0:00:00</span>
-                          <span>2:00:00</span>
-                          <span>4:00:00</span>
-                          <span>6:00:00</span>
-                          <span>7:38:56</span>
-                        </div>
-                        
-                        {/* Waveform visualization */}
-                        <div className="flex items-end h-16 space-x-1">
-                          {Array.from({ length: 100 }).map((_, i) => (
-                            <div
-                              key={i}
-                              className="bg-gray-600 flex-1 rounded-sm"
-                              style={{
-                                height: `${Math.random() * 60 + 10}%`,
-                                opacity: Math.random() * 0.8 + 0.2
-                              }}
-                            />
-                          ))}
-                        </div>
-                        
-                        {/* Playhead */}
-                        <div className="absolute top-4 left-8 w-0.5 h-20 bg-white shadow-lg"></div>
-                      </div>
-                      
-                      {/* Video frames thumbnail strip */}
-                      <div className="h-16 bg-gray-800/80 border-t border-gray-700/30 flex">
-                        {Array.from({ length: 12 }).map((_, i) => (
-                          <div
-                            key={i}
-                            className="flex-1 h-full bg-gray-700/50 border-r border-gray-600/30 bg-cover bg-center"
-                            style={{
-                              backgroundImage: 'url(/placeholder.svg)',
-                              opacity: 0.6
-                            }}
-                          />
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Recommendations inside expanded view */}
+                  <div className="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    {/* Left Side - Recommendations */}
                     <Card className="bg-gray-800/30 backdrop-blur-xl border-gray-700/30">
                       <CardHeader>
                         <CardTitle className="text-white flex items-center space-x-2">
@@ -305,6 +250,64 @@ const VideoAnalysis = () => {
                         </div>
                       </CardContent>
                     </Card>
+
+                    {/* Right Side - Timeline and Controls */}
+                    <div className="space-y-4">
+                      {/* Timeline Controls */}
+                      <div className="flex items-center justify-between bg-gray-800/60 rounded-lg p-4 border border-gray-700/30">
+                        <div className="flex items-center space-x-4">
+                          <div className="bg-gray-700/60 rounded px-3 py-1 text-white text-sm font-mono">
+                            0:00:00
+                          </div>
+                        </div>
+                        <div className="text-gray-400 text-sm">7:38:56</div>
+                      </div>
+
+                      {/* Waveform/Timeline */}
+                      <div className="bg-gray-800/60 rounded-lg border border-gray-700/30 overflow-hidden">
+                        <div className="h-32 bg-gray-900/50 relative p-4">
+                          {/* Timeline markers */}
+                          <div className="flex justify-between text-xs text-gray-500 mb-2">
+                            <span>0:00:00</span>
+                            <span>2:00:00</span>
+                            <span>4:00:00</span>
+                            <span>6:00:00</span>
+                            <span>7:38:56</span>
+                          </div>
+                          
+                          {/* Waveform visualization */}
+                          <div className="flex items-end h-16 space-x-1">
+                            {Array.from({ length: 100 }).map((_, i) => (
+                              <div
+                                key={i}
+                                className="bg-gray-600 flex-1 rounded-sm"
+                                style={{
+                                  height: `${Math.random() * 60 + 10}%`,
+                                  opacity: Math.random() * 0.8 + 0.2
+                                }}
+                              />
+                            ))}
+                          </div>
+                          
+                          {/* Playhead */}
+                          <div className="absolute top-4 left-8 w-0.5 h-20 bg-white shadow-lg"></div>
+                        </div>
+                        
+                        {/* Video frames thumbnail strip */}
+                        <div className="h-16 bg-gray-800/80 border-t border-gray-700/30 flex">
+                          {Array.from({ length: 12 }).map((_, i) => (
+                            <div
+                              key={i}
+                              className="flex-1 h-full bg-gray-700/50 border-r border-gray-600/30 bg-cover bg-center"
+                              style={{
+                                backgroundImage: 'url(/placeholder.svg)',
+                                opacity: 0.6
+                              }}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 )}
               </CardContent>
