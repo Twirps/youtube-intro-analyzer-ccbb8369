@@ -256,16 +256,17 @@ const VideoAnalysis = () => {
                           </video>
                         </div>
 
-                        {/* Timeline Controls */}
-                        <div className="flex items-center justify-between bg-gray-800/60 rounded-lg p-4 border border-gray-700/30">
-                          <div className="flex items-center space-x-4">
-                            <div className="bg-gray-700/60 rounded px-3 py-1 text-white text-sm font-mono">
-                              0:00:00
-                            </div>
-                          </div>
-                          <div className="text-gray-400 text-sm">7:38:56</div>
+                      </div>
+                    </div>
+
+                    {/* Timecode Controls - Full Width */}
+                    <div className="flex items-center justify-between bg-gray-800/60 rounded-lg p-4 border border-gray-700/30">
+                      <div className="flex items-center space-x-4">
+                        <div className="bg-gray-700/60 rounded px-3 py-1 text-white text-sm font-mono">
+                          0:00:00
                         </div>
                       </div>
+                      <div className="text-gray-400 text-sm">7:38:56</div>
                     </div>
 
                     {/* Bottom Section - Full Width Timeline */}
