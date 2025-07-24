@@ -185,19 +185,19 @@ const VideoAnalysis = () => {
                     {/* Top Section - Recommendations and Video Player */}
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                       {/* Left Side - Recommendations */}
-                      <Card className="bg-gray-800/30 backdrop-blur-xl border-gray-700/30">
-                        <CardHeader>
-                          <CardTitle className="text-white flex items-center space-x-2">
-                            <Lightbulb className="h-5 w-5 text-yellow-400" />
+                      <Card className="bg-gray-800/30 backdrop-blur-xl border-gray-700/30 h-fit">
+                        <CardHeader className="pb-3">
+                          <CardTitle className="text-white flex items-center space-x-2 text-sm">
+                            <Lightbulb className="h-4 w-4 text-yellow-400" />
                             <span>Recommendations</span>
                           </CardTitle>
                         </CardHeader>
                         <CardContent>
-                          <div className="space-y-3 max-h-96 overflow-y-auto">
+                          <div className="space-y-2 max-h-80 overflow-y-auto">
                             {recommendations.map((rec, index) => (
                               <div 
                                 key={index} 
-                                className={`p-3 bg-gray-700/30 rounded-lg border border-gray-600/20 cursor-move transition-all duration-300 ease-in-out transform ${
+                                className={`p-2 bg-gray-700/30 rounded-md border border-gray-600/20 cursor-move transition-all duration-300 ease-in-out transform ${
                                   draggedIndex === index 
                                     ? 'scale-105 shadow-lg rotate-1 opacity-50' 
                                     : dragOverIndex === index 
@@ -213,9 +213,9 @@ const VideoAnalysis = () => {
                                 onDrop={(e) => handleDrop(e, index)}
                               >
                                 <div className="flex items-start justify-between mb-1">
-                                  <h4 className="text-white font-medium text-sm">{rec.title}</h4>
-                                  <div className="flex items-center space-x-2">
-                                    <span className={`text-xs px-2 py-1 rounded-full ${
+                                  <h4 className="text-white font-medium text-xs">{rec.title}</h4>
+                                  <div className="flex items-center space-x-1">
+                                    <span className={`text-xs px-1.5 py-0.5 rounded-full text-xs ${
                                       rec.priority === 'High' ? 'bg-red-500/20 text-red-300' : 
                                       rec.priority === 'Medium' ? 'bg-yellow-500/20 text-yellow-300' :
                                       'bg-gray-500/20 text-gray-300'
@@ -225,16 +225,16 @@ const VideoAnalysis = () => {
                                     <Button
                                       size="sm"
                                       variant="ghost"
-                                      className="h-6 w-6 p-0 hover:bg-green-500/20 hover:text-green-400 text-gray-500"
+                                      className="h-5 w-5 p-0 hover:bg-green-500/20 hover:text-green-400 text-gray-500"
                                       title="Apply Suggestion"
                                     >
-                                      <Check className="h-3 w-3" />
+                                      <Check className="h-2.5 w-2.5" />
                                     </Button>
                                   </div>
                                 </div>
-                                <p className="text-gray-400 text-xs mb-2">{rec.description}</p>
-                                <div className="bg-gray-900/50 rounded p-2 border-l-2 border-blue-400">
-                                  <p className="text-gray-300 text-xs font-mono">{rec.example}</p>
+                                <p className="text-gray-400 text-xs mb-1.5 leading-tight">{rec.description}</p>
+                                <div className="bg-gray-900/50 rounded p-1.5 border-l-2 border-blue-400">
+                                  <p className="text-gray-300 text-xs font-mono leading-tight">{rec.example}</p>
                                 </div>
                               </div>
                             ))}
