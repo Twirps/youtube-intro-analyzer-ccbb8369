@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { BarChart3, Play, Lightbulb, ArrowLeft, Check, Maximize2, Minimize2, Scissors, Volume2, Info } from 'lucide-react';
+import { BarChart3, Play, Pause, Lightbulb, ArrowLeft, Check, Maximize2, Minimize2, Scissors, Volume2, Info } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
@@ -20,6 +20,7 @@ const VideoAnalysis = () => {
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [volume, setVolume] = useState(1);
   const [showAllRecommendations, setShowAllRecommendations] = useState(false);
   const [draggedIndex, setDraggedIndex] = useState(null);
   const [dragOverIndex, setDragOverIndex] = useState(null);
@@ -119,6 +120,14 @@ const VideoAnalysis = () => {
       setIsPlaying(!isPlaying);
     }
   };
+  
+  const handleVolumeChange = (value) => {
+    const newVolume = value[0];
+    setVolume(newVolume);
+    if (videoRef.current) {
+      videoRef.current.volume = newVolume;
+    }
+  };
   const handleTimelineSeek = newTime => {
     if (videoRef.current) {
       videoRef.current.currentTime = newTime;
@@ -177,9 +186,9 @@ const VideoAnalysis = () => {
           <div className="w-32"></div> {/* Spacer for balance */}
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Left Side - Video Player */}
-          <div className="space-y-6">
+          <div className="lg:col-span-2 space-y-6">
             <Card className="bg-gray-900/50 backdrop-blur-xl border-gray-700/50">
               <CardHeader>
                 <CardTitle className="text-white flex items-center space-x-2">
@@ -190,30 +199,56 @@ const VideoAnalysis = () => {
               <CardContent>
                 <div className="space-y-4">
                   {/* Video Player */}
-                  <div className="relative bg-black rounded-lg overflow-hidden">
-                    {videoFile ? <video ref={videoRef} className="w-full h-auto max-h-96" onTimeUpdate={handleTimeUpdate} onLoadedMetadata={handleLoadedMetadata} onPlay={() => setIsPlaying(true)} onPause={() => setIsPlaying(false)}>
-                        <source src={URL.createObjectURL(videoFile)} type={videoFile.type} />
-                        Your browser does not support the video tag.
-                      </video> : <div className="w-full h-64 bg-gray-800 flex items-center justify-center">
+                  <div className="relative bg-black rounded-lg overflow-hidden group">
+                    {videoFile ? (
+                      <>
+                        <video 
+                          ref={videoRef} 
+                          className="w-full h-auto max-h-96" 
+                          onTimeUpdate={handleTimeUpdate} 
+                          onLoadedMetadata={handleLoadedMetadata} 
+                          onPlay={() => setIsPlaying(true)} 
+                          onPause={() => setIsPlaying(false)}
+                        >
+                          <source src={URL.createObjectURL(videoFile)} type={videoFile.type} />
+                          Your browser does not support the video tag.
+                        </video>
+                        
+                        {/* Video Overlay Controls */}
+                        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/20">
+                          <Button 
+                            onClick={handlePlayPause} 
+                            variant="ghost" 
+                            size="lg"
+                            className="bg-black/50 hover:bg-black/70 text-white border-0 rounded-full w-16 h-16"
+                          >
+                            {isPlaying ? <Pause className="h-8 w-8" /> : <Play className="h-8 w-8 ml-1" />}
+                          </Button>
+                        </div>
+                        
+                        {/* Volume Control */}
+                        <div className="absolute bottom-4 right-4 flex items-center space-x-2 bg-black/70 rounded-lg px-3 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                          <Volume2 className="h-4 w-4 text-white" />
+                          <Slider
+                            value={[volume]}
+                            onValueChange={handleVolumeChange}
+                            max={1}
+                            step={0.1}
+                            className="w-20"
+                          />
+                        </div>
+                      </>
+                    ) : (
+                      <div className="w-full h-64 bg-gray-800 flex items-center justify-center">
                         <p className="text-gray-400">No video available</p>
-                      </div>}
+                      </div>
+                    )}
                   </div>
 
-                  {/* Video Controls */}
-                  <div className="space-y-3">
-                    <div className="flex items-center space-x-4">
-                      <Button onClick={handlePlayPause} variant="outline" size="sm" className="bg-gray-800/80 border-gray-600 text-gray-300 hover:bg-gray-700 hover:text-white">
-                        <Play className={`h-4 w-4 ${isPlaying ? 'hidden' : 'block'}`} />
-                        <span className={`h-4 w-4 ${isPlaying ? 'block' : 'hidden'}`}>⏸</span>
-                      </Button>
-                      
-                    </div>
-
-                    {/* Professional Timeline */}
-                    <div className="space-y-2">
-                      <div className="text-gray-400 text-xs">Professional Timeline</div>
-                      <VideoTimeline videoRef={videoRef} currentTime={currentTime} duration={duration} onTimeChange={handleTimelineSeek} />
-                    </div>
+                  {/* Professional Timeline */}
+                  <div className="space-y-2">
+                    <div className="text-gray-400 text-xs">Professional Timeline</div>
+                    <VideoTimeline videoRef={videoRef} currentTime={currentTime} duration={duration} onTimeChange={handleTimelineSeek} />
                   </div>
                 </div>
               </CardContent>
