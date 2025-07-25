@@ -157,13 +157,15 @@ const Analysis = () => {
                   </div>
                 </div>
 
-                <Button 
-                  variant="outline" 
-                  size="sm" 
-                  className="absolute bottom-4 right-4 bg-gray-800/80 border-gray-600 text-gray-300 hover:bg-gray-700 hover:text-white"
-                >
-                  Learn More
-                </Button>
+                <Link to="/video-analysis" state={{ videoTitle, videoFile, analysisType: 'visual' }}>
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="absolute bottom-4 right-4 bg-gray-800/80 border-gray-600 text-gray-300 hover:bg-gray-700 hover:text-white"
+                  >
+                    Learn More
+                  </Button>
+                </Link>
               </CardContent>
             </Card>
 
@@ -193,13 +195,15 @@ const Analysis = () => {
                   </div>
                 </div>
 
-                <Button 
-                  variant="outline" 
-                  size="sm" 
-                  className="absolute bottom-4 right-4 bg-gray-800/80 border-gray-600 text-gray-300 hover:bg-gray-700 hover:text-white"
-                >
-                  Learn More
-                </Button>
+                <Link to="/video-analysis" state={{ videoTitle, videoFile, analysisType: 'audio' }}>
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="absolute bottom-4 right-4 bg-gray-800/80 border-gray-600 text-gray-300 hover:bg-gray-700 hover:text-white"
+                  >
+                    Learn More
+                  </Button>
+                </Link>
               </CardContent>
             </Card>
           </div>
