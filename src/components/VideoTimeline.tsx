@@ -164,11 +164,7 @@ const VideoTimeline: React.FC<VideoTimelineProps> = ({
         </div>
 
         {/* Playhead */}
-        <div className="absolute top-0 bottom-0 w-0.5 bg-white shadow-lg z-10" style={{
-        left: `${playheadPosition}%`
-      }}>
-          <div className="absolute -top-2 -left-2 w-4 h-4 bg-white rounded-full shadow-lg"></div>
-        </div>
+        
       </div>
 
       {/* Timeline Controls */}
