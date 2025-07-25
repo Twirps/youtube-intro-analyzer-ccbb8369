@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
 import { Link, useLocation } from 'react-router-dom';
+import VideoTimeline from '@/components/VideoTimeline';
 
 const VideoAnalysis = () => {
   const location = useLocation();
@@ -134,9 +135,8 @@ const VideoAnalysis = () => {
     }
   };
 
-  const handleTimelineSeek = (value) => {
-    if (videoRef.current && duration > 0) {
-      const newTime = (value[0] / 100) * duration;
+  const handleTimelineSeek = (newTime) => {
+    if (videoRef.current) {
       videoRef.current.currentTime = newTime;
       setCurrentTime(newTime);
     }
@@ -247,15 +247,14 @@ const VideoAnalysis = () => {
                       </div>
                     </div>
 
-                    {/* Timeline Slider */}
+                    {/* Professional Timeline */}
                     <div className="space-y-2">
-                      <div className="text-gray-400 text-xs">Timeline</div>
-                      <Slider
-                        value={[duration > 0 ? (currentTime / duration) * 100 : 0]}
-                        onValueChange={handleTimelineSeek}
-                        max={100}
-                        step={0.1}
-                        className="w-full"
+                      <div className="text-gray-400 text-xs">Professional Timeline</div>
+                      <VideoTimeline
+                        videoRef={videoRef}
+                        currentTime={currentTime}
+                        duration={duration}
+                        onTimeChange={handleTimelineSeek}
                       />
                     </div>
                   </div>
