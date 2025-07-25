@@ -261,7 +261,7 @@ const VideoAnalysis = () => {
               <CardHeader>
                 <CardTitle className="text-white flex items-center space-x-2">
                   <Lightbulb className="h-5 w-5 text-yellow-400" />
-                  <span>{analysisType === 'visual' ? 'Visual' : 'Audio'} Recommendations</span>
+                  <span>{analysisType === 'visual' ? 'Visual' : 'Audio'} Recomendations</span>
                 </CardTitle>
               </CardHeader>
               <CardContent>
