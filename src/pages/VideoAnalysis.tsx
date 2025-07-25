@@ -182,9 +182,21 @@ const VideoAnalysis = () => {
                 ) : (
                   /* Expanded Timeline/Editor Section */
                   <div className="space-y-6">
-                    {/* Top Section - Recommendations and Video Player */}
+                    {/* Top Section - Video Player and Recommendations */}
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                      {/* Left Side - Recommendations */}
+                      {/* Left Side - Video Player */}
+                      <div className="aspect-video bg-gray-800/50 rounded-lg border border-gray-700/30 overflow-hidden">
+                        <video 
+                          className="w-full h-full object-cover"
+                          controls
+                          poster="/placeholder.svg"
+                        >
+                          <source src={videoUrl} type="video/mp4" />
+                          Your browser does not support the video tag.
+                        </video>
+                      </div>
+
+                      {/* Right Side - Recommendations */}
                       <Card className="bg-gray-800/30 backdrop-blur-xl border-gray-700/30 h-fit">
                         <CardHeader className="pb-3">
                           <CardTitle className="text-white flex items-center space-x-2 text-sm">
@@ -241,76 +253,60 @@ const VideoAnalysis = () => {
                           </div>
                         </CardContent>
                       </Card>
-
-                      {/* Right Side - Video Player */}
-                      <div className="space-y-4">
-                        {/* Video Player */}
-                        <div className="aspect-video bg-gray-800/50 rounded-lg border border-gray-700/30 overflow-hidden">
-                          <video 
-                            className="w-full h-full object-cover"
-                            controls
-                            poster="/placeholder.svg"
-                          >
-                            <source src={videoUrl} type="video/mp4" />
-                            Your browser does not support the video tag.
-                          </video>
-                        </div>
-
-                      </div>
                     </div>
 
-                    {/* Timecode Controls - Full Width */}
-                    <div className="flex items-center justify-between bg-gray-800/60 rounded-lg p-4 border border-gray-700/30">
-                      <div className="flex items-center space-x-4">
-                        <div className="bg-gray-700/60 rounded px-3 py-1 text-white text-sm font-mono">
-                          0:00:00
-                        </div>
-                      </div>
-                      <div className="text-gray-400 text-sm">7:38:56</div>
-                    </div>
-
-                    {/* Bottom Section - Full Width Timeline */}
-                    <div className="bg-gray-800/60 rounded-lg border border-gray-700/30 overflow-hidden">
-                      <div className="h-32 bg-gray-900/50 relative p-4">
-                        {/* Timeline markers */}
-                        <div className="flex justify-between text-xs text-gray-500 mb-2">
-                          <span>0:00:00</span>
-                          <span>2:00:00</span>
-                          <span>4:00:00</span>
-                          <span>6:00:00</span>
-                          <span>7:38:56</span>
-                        </div>
-                        
-                        {/* Waveform visualization */}
-                        <div className="flex items-end h-16 space-x-1">
-                          {Array.from({ length: 100 }).map((_, i) => (
-                            <div
-                              key={i}
-                              className="bg-gray-600 flex-1 rounded-sm"
-                              style={{
-                                height: `${Math.random() * 60 + 10}%`,
-                                opacity: Math.random() * 0.8 + 0.2
-                              }}
-                            />
-                          ))}
-                        </div>
-                        
-                        {/* Playhead */}
-                        <div className="absolute top-4 left-8 w-0.5 h-20 bg-white shadow-lg"></div>
-                      </div>
-                      
-                      {/* Video frames thumbnail strip */}
-                      <div className="h-16 bg-gray-800/80 border-t border-gray-700/30 flex">
-                        {Array.from({ length: 12 }).map((_, i) => (
-                          <div
-                            key={i}
-                            className="flex-1 h-full bg-gray-700/50 border-r border-gray-600/30 bg-cover bg-center"
-                            style={{
-                              backgroundImage: 'url(/placeholder.svg)',
-                              opacity: 0.6
-                            }}
+                    {/* Bottom Section - Analysis Summary and Timeline */}
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                      {/* Left Side - Analysis Summary */}
+                      <Card className="bg-gray-800/30 backdrop-blur-xl border-gray-700/30">
+                        <CardHeader className="pb-3">
+                          <CardTitle className="text-white text-sm">Analysis Summary</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                          <textarea
+                            className="w-full h-32 bg-gray-900/50 border border-gray-700/30 rounded-lg p-3 text-gray-300 text-sm resize-none placeholder-gray-500"
+                            placeholder="Summary of what should be changed..."
                           />
-                        ))}
+                        </CardContent>
+                      </Card>
+
+                      {/* Right Side - Timeline and Waveform */}
+                      <div className="space-y-4">
+                        {/* Timecode Controls */}
+                        <div className="flex items-center justify-between bg-gray-800/60 rounded-lg p-4 border border-gray-700/30">
+                          <div className="flex items-center space-x-4">
+                            <div className="bg-gray-700/60 rounded px-3 py-1 text-white text-sm font-mono">
+                              0:00:00
+                            </div>
+                          </div>
+                          <div className="text-gray-400 text-sm">7:38:56</div>
+                        </div>
+
+                        {/* Timeline with Waveform */}
+                        <div className="bg-gray-800/60 rounded-lg border border-gray-700/30 overflow-hidden">
+                          <div className="h-24 bg-gray-900/50 relative p-4">
+                            {/* Waveform visualization */}
+                            <div className="flex items-end h-16 space-x-1">
+                              {Array.from({ length: 60 }).map((_, i) => (
+                                <div
+                                  key={i}
+                                  className={`flex-1 rounded-sm ${
+                                    i >= 15 && i <= 35 ? 'bg-red-400' : 
+                                    i >= 40 && i <= 50 ? 'bg-blue-400' : 
+                                    'bg-gray-600'
+                                  }`}
+                                  style={{
+                                    height: `${Math.random() * 60 + 10}%`,
+                                    opacity: Math.random() * 0.8 + 0.2
+                                  }}
+                                />
+                              ))}
+                            </div>
+                            
+                            {/* Playhead */}
+                            <div className="absolute top-4 left-8 w-0.5 h-16 bg-white shadow-lg"></div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
