@@ -201,7 +201,13 @@ const VideoAnalysis = () => {
 
                   {/* Video Controls */}
                   <div className="space-y-3">
-                    
+                    <div className="flex items-center space-x-4">
+                      <Button onClick={handlePlayPause} variant="outline" size="sm" className="bg-gray-800/80 border-gray-600 text-gray-300 hover:bg-gray-700 hover:text-white">
+                        <Play className={`h-4 w-4 ${isPlaying ? 'hidden' : 'block'}`} />
+                        <span className={`h-4 w-4 ${isPlaying ? 'block' : 'hidden'}`}>⏸</span>
+                      </Button>
+                      
+                    </div>
 
                     {/* Professional Timeline */}
                     <div className="space-y-2">

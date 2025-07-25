@@ -105,9 +105,7 @@ const VideoTimeline: React.FC<VideoTimelineProps> = ({
         left: `${percentage}%`
       }}>
           <div className="w-px h-4 bg-gray-400"></div>
-          <span className="text-xs text-gray-400 mt-1 font-mono">
-            {formatTimecode(time)}
-          </span>
+          
         </div>);
     }
     return markers;
@@ -123,9 +121,7 @@ const VideoTimeline: React.FC<VideoTimelineProps> = ({
       </div>
 
       {/* Time Markers */}
-      <div className="relative h-6 mb-2">
-        {generateTimeMarkers()}
-      </div>
+      
 
       {/* Timeline Container */}
       <div ref={timelineRef} className="relative bg-gray-800 rounded border border-gray-600 cursor-pointer" onMouseDown={handleMouseDown}>
@@ -168,7 +164,11 @@ const VideoTimeline: React.FC<VideoTimelineProps> = ({
         </div>
 
         {/* Playhead */}
-        
+        <div className="absolute top-0 bottom-0 w-0.5 bg-white shadow-lg z-10" style={{
+        left: `${playheadPosition}%`
+      }}>
+          <div className="absolute -top-2 -left-2 w-4 h-4 bg-white rounded-full shadow-lg"></div>
+        </div>
       </div>
 
       {/* Timeline Controls */}
